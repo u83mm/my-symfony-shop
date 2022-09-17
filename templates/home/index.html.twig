@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Shop | Home{% endblock %}
+
+{% block main %}
+    <div class="container-fluid">
+        <div class="row d-flex">
+        {% for product in products %}
+            <div class="flex-item col-12 col-lg-6 bg-light mb-lg-3"> 
+                <div class="float-md-start col-md-5">
+                    <figure class="figure text-center p-2">
+                        <img src={{ asset(product.image) }} class="figure-img img-fluid rounded" alt="main-picture">
+                        <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                    </figure>
+                </div>               
+                
+                <div class="d-inline-block col-md-7">
+                    <p>{{ product.description }}</p>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur distinctio neque 
+                    aspernatur mollitia molestias quasi atque esse, odio voluptates nesciunt provident illo nemo 
+                    dicta in     amet sint? Asperiores, rerum id.</p>
+                    <p><strong>Price: </strong>{{ product.price }} €</p>
+                </div>                                                  
+            </div>           
+        {% endfor %}            
+        </div>
+    </div>
+    
+{% endblock %}

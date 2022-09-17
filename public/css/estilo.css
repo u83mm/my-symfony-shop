@@ -1,0 +1,150 @@
+@font-face{
+font-family: ubuntuRegular;
+src: url('../ttf/Ubuntu-R.ttf') format('truetype');
+}
+
+@font-face{
+font-family: ubuntuBold;
+src: url('../ttf/Ubuntu-B.ttf') format('truetype');
+}
+
+@font-face{
+font-family: ubuntuBoldItalic;
+src: url('../ttf/Ubuntu-BI.ttf') format('truetype');
+}
+
+@font-face{
+font-family: ubuntuItalic;
+src: url('../ttf/Ubuntu-I.ttf') format('truetype');
+}
+
+
+* {
+	margin: 0px;
+	padding: 0px;
+	outline: none;
+	text-decoration: none;
+	box-sizing: border-box;
+}	
+
+body {
+	font-size: 100%;	
+	font-family: ubuntuRegular;
+	margin: 0 auto;
+}
+
+hr {
+	margin-top: 10px;
+}
+
+h1 {
+	font-size: 2em;
+	margin-bottom: 30px;
+	text-align: center;
+	transform: translate(0px, 20px);
+}
+
+h2 {
+	font-size: 1.5em;
+}
+
+h3 {
+	font-size: 1.17em;
+	margin-left: 10px;
+}
+
+h4 {
+	 font-size: 1em;
+}
+
+h5 {
+	font-size: .83em;
+}
+
+h6 {
+	font-size: .67em;
+}
+
+nav {
+	margin-bottom: 10px;
+	margin-left: 10px;	
+}
+
+li {
+	display: inline;
+	margin-right: 5px;
+}
+
+p{
+	padding-top: 10px;
+	text-align: left;
+	margin-left: 10px;
+}
+
+td {
+	text-align: center;
+}
+
+label{
+	display: inline-block;
+	margin-top: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+	padding-top: 5px;
+	font-family: Arial;
+	width: 150px;
+	text-align: left;
+}
+
+footer p{
+	text-align: center;	
+}
+
+.error {
+	color: red;
+}
+
+.main-pictures {
+	height: 30em;
+}
+
+p {
+	text-align: justify;
+}
+
+/************************************************************************
+*					Configuración para móviles							*
+************************************************************************/
+@media (max-width:480px) {	
+	.figure {
+		width: 100%;
+	}
+}
+
+/************************************************************************
+*			iphone 6/7/8 horizontal														*
+************************************************************************/
+@media (min-width:481px) and (max-width: 668px) {
+	
+}
+
+/************************************************************************
+*			Configuración para tablets portrait (retrato)						*
+************************************************************************/
+@media (min-width:481px) and (max-width: 768px) {
+					
+}
+
+/***************************************************************
+*		Configuración para tablets landscape (horizontal)	   *
+***************************************************************/
+@media (min-width: 769px) and (max-width: 1050px) {
+			
+}
+
+/***************************************************************
+*			 Configuración para KINDLE FIRE						*
+***************************************************************/
+@media (min-width: 1051px) and (max-width: 1280px) {
+		
+}
