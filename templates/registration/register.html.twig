@@ -7,40 +7,33 @@
     <div class="row">
         <div class="col-lg-6 mx-auto">
             {{ form_start(registrationForm) }}
-                 <div class="row">
-                    <div class="col-sm-4 mb-3">
-                        {{ form_label(registrationForm.name, 'Name:', {'label_attr': {'class': 'form-label'}}) }}                        
-                    </div>
-                    <div class="col-sm-8 mb-3">                        
-                        {{ form_widget(registrationForm.name, { 'attr': { 'class': 'form-control' }}) }}
-                    </div>
-                </div>
+                {% for field in registrationForm.children %}
+                    <div class="row {% if not field.vars.valid %}has-error{% endif %}">
+                        {% if field.vars.name != "_token" %}
+                            <div class="col-sm-4 mb-3">
+                                {{ form_label(field, null, {'label_attr': {'class': 'form-label'}}) }} 
+                            </div>                                                
+                        {% endif %}
+                        {% if field.vars.name == "agreeTerms" %}
+                            <div class="col-sm-8 mb-3">                        
+                                {{ form_widget(field) }}
+                            </div> 
+                        {% else %}
+                            <div class="col-sm-8 mb-3">                        
+                                {{ form_widget(field, { 'attr': { 'class': 'form-control' }}) }}
+                            </div>    
+                        {% endif %}                                                     
+                        <div class="error">{{ form_errors(field) }}</div>           
+                    </div>                           
+                {% endfor %}
                 <div class="row">
                     <div class="col-sm-4 mb-3">
-                        {{ form_label(registrationForm.email, 'Email:', {'label_attr': {'class': 'form-label'}}) }}                        
+                        <label for="none">&nbsp;</label>
                     </div>
                     <div class="col-sm-8 mb-3">                        
-                        {{ form_widget(registrationForm.email, { 'attr': { 'class': 'form-control' }}) }}
+                        <button type="submit" class="btn btn-outline-success">Register</button>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 mb-3">
-                        {{ form_label(registrationForm.plainPassword, 'Password:', {'label_attr': {'class': 'form-label'}}) }}                        
-                    </div>
-                    <div class="col-sm-8 mb-3">                        
-                        {{ form_widget(registrationForm.plainPassword, { 'attr': { 'class': 'form-control' }}) }}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4 mb-3">
-                        {{ form_label(registrationForm.agreeTerms, 'Agree terms:', {'label_attr': {'class': 'form-label'}}) }}                        
-                    </div>
-                    <div class="col-sm-8 mb-3">                        
-                        {{ form_widget(registrationForm.agreeTerms) }}
-                    </div>
-                </div>                                                               
-
-                <button type="submit" class="btn btn-primary">Register</button>
+                </div>                
             {{ form_end(registrationForm) }}
         </div>
     </div>    

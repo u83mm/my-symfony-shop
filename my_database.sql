@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db:3306
--- Tiempo de generación: 17-09-2022 a las 17:57:17
+-- Tiempo de generación: 18-09-2022 a las 19:11:49
 -- Versión del servidor: 10.8.3-MariaDB-1:10.8.3+maria~jammy
 -- Versión de PHP: 8.0.22
 
@@ -39,27 +39,21 @@ CREATE TABLE `customer` (
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- --------------------------------------------------------
-
 --
--- Estructura de tabla para la tabla `doctrine_migration_versions`
+-- Volcado de datos para la tabla `customer`
 --
 
-CREATE TABLE `doctrine_migration_versions` (
-  `version` varchar(191) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `executed_at` datetime DEFAULT NULL,
-  `execution_time` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
-
---
--- Volcado de datos para la tabla `doctrine_migration_versions`
---
-
-INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20220916222911', '2022-09-16 22:30:45', 106),
-('DoctrineMigrations\\Version20220917093906', '2022-09-17 11:39:20', 78),
-('DoctrineMigrations\\Version20220917174401', '2022-09-17 19:44:13', 75),
-('DoctrineMigrations\\Version20220917174626', '2022-09-17 19:46:31', 58);
+INSERT INTO `customer` (`id`, `name`, `first_name`, `last_name`, `address`, `state`, `city`, `email`, `password`) VALUES
+(1, 'Tyshawn Doyle', 'Alvina', 'Streich', '91272 Nyah Coves\nWest Pierreburgh, IL 54131', 'Swaziland', 'Evafort', 'salma.brakus@fay.com', '.J8l1\\uN>w'),
+(2, 'Uriel Kertzmann', 'Pete', 'Baumbach', '89739 Isac Station\nOsbaldoville, GA 47602', 'Philippines', 'Larkinburgh', 'geovanny27@hotmail.com', 'gN_E~X{N\'a9rBe5hu:'),
+(3, 'Kiara Carroll', 'Myles', 'Ratke', '413 Goyette Coves\nWest Bradyton, WY 22380-2188', 'Taiwan', 'East Hoseabury', 'lebsack.alyson@feeney.net', ',M3A[4{v?9f&\'I=.=0'),
+(4, 'Miss Marisa Gusikowski Jr.', 'Berenice', 'Predovic', '1760 King Canyon\nNorth Penelopeland, AZ 70384', 'Zimbabwe', 'Anastasialand', 'tate.murphy@olson.info', 'w}G=VyBp'),
+(5, 'Chloe Orn', 'Mariam', 'O\'Hara', '13586 Mallory Mountains\nLake Catherinemouth, MO 75556', 'Georgia', 'North Everardo', 'stoltenberg.rosamond@gmail.com', 'Q(f?\\DcHZR'),
+(6, 'Loraine Stracke', 'Aiyana', 'Frami', '8044 Grimes Ways\nEast Meredith, NJ 37837', 'Samoa', 'Littelchester', 'marvin.isobel@gerlach.com', 'v=L:78A?|/!~AZPo$449'),
+(7, 'Maye Hagenes', 'Jacklyn', 'Hauck', '83539 Schamberger Club\nWest Nola, NM 27474-7052', 'Monaco', 'Lake Noemihaven', 'christophe12@erdman.org', '+ME_ZV^LMu#u~'),
+(8, 'Clementina McKenzie', 'Zelda', 'Armstrong', '8160 Arnoldo Fork\nEast Joanfurt, VA 89541-2456', 'Bahrain', 'Carlostown', 'miller.emmett@yahoo.com', 's=KI1Iw%\'Y='),
+(9, 'Leonie O\'Hara', 'Cameron', 'Funk', '753 Grady Harbors Apt. 513\nSkilestown, CO 04138', 'Tokelau', 'South Oliverport', 'amber.jacobi@gmail.com', '5*AsjHe'),
+(10, 'Thora Pagac', 'Tevin', 'Wolf', '96956 Julie Forest\nAlanaside, WI 71613', 'Netherlands', 'Lake Georgianahaven', 'quincy71@gmail.com', 'I:Z3]QIh-MS');
 
 -- --------------------------------------------------------
 
@@ -107,6 +101,27 @@ INSERT INTO `product` (`id`, `name`, `description`, `price`, `image`) VALUES
 (60, 'Hatter.', 'Expedita unde earum explicabo officiis et dolor voluptas libero. Et ab et quis. Sit qui aut similique nihil et quia.', '75.80', 'images/products/ludwig.png'),
 (61, 'MUST be.', 'Sit quam sapiente velit blanditiis. Voluptas doloribus error et est ut corrupti. Praesentium incidunt magnam reiciendis excepturi aliquid. Non magni itaque exercitationem facere ut molestias.', '423.00', 'images/products/pearl.png');
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `roles` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:json)',
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `user`
+--
+
+INSERT INTO `user` (`id`, `name`, `email`, `roles`, `password`) VALUES
+(1, 'admin', 'admin@admin.com', '[\"ROLE_ADMIN\"]', '$2y$13$lsejG4lXEzd6hHSC6glx3Ojjg.C3qdZAturk5uFF0g4VKRW6kUbom');
+
 --
 -- Índices para tablas volcadas
 --
@@ -116,12 +131,6 @@ INSERT INTO `product` (`id`, `name`, `description`, `price`, `image`) VALUES
 --
 ALTER TABLE `customer`
   ADD PRIMARY KEY (`id`);
-
---
--- Indices de la tabla `doctrine_migration_versions`
---
-ALTER TABLE `doctrine_migration_versions`
-  ADD PRIMARY KEY (`version`);
 
 --
 -- Indices de la tabla `messenger_messages`
@@ -139,6 +148,13 @@ ALTER TABLE `product`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -146,7 +162,7 @@ ALTER TABLE `product`
 -- AUTO_INCREMENT de la tabla `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de la tabla `messenger_messages`
@@ -159,6 +175,12 @@ ALTER TABLE `messenger_messages`
 --
 ALTER TABLE `product`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+
+--
+-- AUTO_INCREMENT de la tabla `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
