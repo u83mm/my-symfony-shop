@@ -7,6 +7,14 @@
     <div class="row">
         <div class="col-lg-6 mx-auto">
             {{ form_start(registrationForm) }}
+                 <div class="row">
+                    <div class="col-sm-4 mb-3">
+                        {{ form_label(registrationForm.name, 'Name:', {'label_attr': {'class': 'form-label'}}) }}                        
+                    </div>
+                    <div class="col-sm-8 mb-3">                        
+                        {{ form_widget(registrationForm.name, { 'attr': { 'class': 'form-control' }}) }}
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-sm-4 mb-3">
                         {{ form_label(registrationForm.email, 'Email:', {'label_attr': {'class': 'form-label'}}) }}                        

@@ -50,6 +50,11 @@
 							<a class="nav-link" aria-current="page" href="{{ path('app_register') }}">Registration</a>
 						</li>
 						<li class="nav-item d-none d-sm-none d-lg-inline-block">
+							{% if is_granted('ROLE_ADMIN') %}					
+								<a class="nav-link" aria-current="page" href="{{ path('app_admin') }}">Panel de Control</a>									
+							{% endif %}							
+						</li>						
+						<li class="nav-item d-none d-sm-none d-lg-inline-block">
 							{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 								<a class="nav-link" aria-current="page" href="{{ path('app_logout') }}">Logout</a>								
 							{% else %}								
@@ -91,14 +96,14 @@
 			</nav>
 			{% endblock %}			
 			<main class="pt-3 pb-3">
-				{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-					<p>Loged as: {{ app.user.roles|filter }}</p>
+				{% if is_granted('IS_AUTHENTICATED_FULLY') %}					
+					<p>Loged as: <strong>{{ app.user.name }}</strong></p>									
 				{% endif %}
 				{% block flash %}
 					{# read and display all flash messages #}
 					{% for label, messages in app.flashes %}
 						{% for message in messages %}
-							<div class="flash-{{ label }}">
+							<div class="flash-{{ label }} mb-3">
 								{{ message }}
 							</div>
 						{% endfor %}
