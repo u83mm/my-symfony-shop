@@ -13,7 +13,8 @@ class ProductFixtures extends Fixture
     {
         // $product = new Product();
         // $manager->persist($product);
-        $faker = Factory::create();                
+       
+        /*$faker = Factory::create();                
 
         for ($i=0; $i < 10; $i++) { 
             $product = new Product();
@@ -24,6 +25,6 @@ class ProductFixtures extends Fixture
 
             $manager->persist($product);
             $manager->flush();
-        }    
+        }*/   
     }
 }
