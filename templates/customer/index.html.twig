@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Customer index{% endblock %}
+
+{% block main %}
+    <h1>Customer index</h1>
+
+    <div class="table-responsive">
+        <table class="table table-success table-striped">
+            <thead class="text-center">
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>                    
+                    <th>LastName</th>
+                    <th>Address</th>
+                    <th>State</th>
+                    <th>City</th>
+                    <th>Email</th>                    
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for customer in customers %}
+                <tr>
+                    <td>{{ customer.id }}</td>
+                    <td>{{ customer.name }}</td>
+                    <td>{{ customer.firstName }} {{ customer.lastName }}</td>                    
+                    <td>{{ customer.address }}</td>
+                    <td>{{ customer.state }}</td>
+                    <td>{{ customer.city }}</td>
+                    <td>{{ customer.email }}</td>                    
+                    <td class="d-inline-flex">
+                        <a class="btn btn-outline-success me-1" href="{{ path('app_customer_show', {'id': customer.id}) }}">show</a>
+                        <a class="btn btn-outline-success" href="{{ path('app_customer_edit', {'id': customer.id}) }}">edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="10">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>    
+
+    <a class="btn btn-outline-primary" href="{{ path('app_customer_new') }}">Create new</a>
+{% endblock %}
