@@ -4,13 +4,13 @@
 
 {% block main %}
     <h1>Create new Customer</h1>
+
     <div class="row">
         <div class="col-lg-6 mx-auto">
-            {{ include('customer/_form.html.twig') }}
+            {{ include('customer/_form.html.twig') }}   
         </div>
     </div>    
 
-    {% if is_granted('ROLE_ADMIN') %}
-        <a class="btn btn-outline-primary" href="{{ path('app_customer_index') }}">back to list</a>
-    {% endif %}    
+    <a class="btn btn-outline-primary" href="{{ path('app_customer_index') }}">back to list</a>
+
 {% endblock %}

@@ -6,12 +6,11 @@
     <h1>Customer index</h1>
 
     <div class="table-responsive">
-        <table class="table table-bordered table-striped">
+        <table class="table table-success table-striped">
             <thead class="text-center">
                 <tr>
                     <th>Id</th>
-                    <th>Name</th>
-                    <th>FirstName</th>
+                    <th>Name</th> 
                     <th>LastName</th>
                     <th>Address</th>
                     <th>State</th>
@@ -25,8 +24,7 @@
                 <tr>
                     <td>{{ customer.id }}</td>
                     <td>{{ customer.name }}</td>
-                    <td>{{ customer.firstName }}</td>
-                    <td>{{ customer.lastName }}</td>
+                    <td>{{ customer.firstName }} {{ customer.lastName }}</td>                    
                     <td>{{ customer.address }}</td>
                     <td>{{ customer.state }}</td>
                     <td>{{ customer.city }}</td>
@@ -43,8 +41,7 @@
             {% endfor %}
             </tbody>
         </table>
-    </div>
-    
+    </div>    
 
     <a class="btn btn-outline-primary" href="{{ path('app_customer_new') }}">Create new</a>
 {% endblock %}

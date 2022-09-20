@@ -3,9 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Customer;
-use App\Form\CustomerType;
+use App\Form\Customer1Type;
 use App\Repository\CustomerRepository;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/customer')]
 class CustomerController extends AbstractController
 {
+
     /**
      * Require ROLE_ADMIN for this actions
      */
@@ -25,12 +25,12 @@ class CustomerController extends AbstractController
             'customers' => $customerRepository->findAll(),
         ]);
     }
-    
+
     #[Route('/new', name: 'app_customer_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CustomerRepository $customerRepository): Response
     {
         $customer = new Customer();
-        $form = $this->createForm(CustomerType::class, $customer);
+        $form = $this->createForm(Customer1Type::class, $customer);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -44,6 +44,7 @@ class CustomerController extends AbstractController
             'form' => $form,
         ]);
     }
+
 
     /**
      * Require ROLE_USER for this actions
@@ -64,7 +65,7 @@ class CustomerController extends AbstractController
     #[Route('/{id}/edit', name: 'app_customer_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Customer $customer, CustomerRepository $customerRepository): Response
     {
-        $form = $this->createForm(CustomerType::class, $customer);
+        $form = $this->createForm(Customer1Type::class, $customer);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

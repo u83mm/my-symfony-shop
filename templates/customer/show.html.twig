@@ -4,9 +4,8 @@
 
 {% block main %}
     <h1>Customer</h1>
-
     <div class="table-responsive">
-        <table class="table table-bordered table-striped">
+        <table class="table table-success table-striped">
             <tbody>
                 <tr>
                     <th>Id</th>
@@ -51,7 +50,7 @@
 
     <a class="btn btn-outline-primary" href="{{ path('app_customer_index') }}">back to list</a>
 
-    <a class="btn btn-outline-success" href="{{ path('app_customer_edit', {'id': customer.id}) }}">edit</a>
+    <a class="btn btn-outline-primary" href="{{ path('app_customer_edit', {'id': customer.id}) }}">edit</a>
 
     {{ include('customer/_delete_form.html.twig') }}
 {% endblock %}
