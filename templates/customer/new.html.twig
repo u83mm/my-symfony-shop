@@ -11,6 +11,7 @@
         </div>
     </div>    
 
-    <a class="btn btn-outline-primary" href="{{ path('app_customer_index') }}">back to list</a>
-
+    {% if is_granted('ROLE_ADMIN') %}
+        <a class="btn btn-outline-primary" href="{{ path('app_customer_index') }}">back to list</a>
+    {% endif %}
 {% endblock %}
