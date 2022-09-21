@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Customer;
+use App\Form\CustomerLoginType;
 use App\Repository\CustomerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,11 +20,11 @@ class CustomerLoginController extends AbstractController
     public function index(Request $request, CustomerRepository $customerRepository, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
     {    
         $customer = new Customer();
+        $form = $this->createForm(CustomerLoginType::class, $customer);
         
-        
-        return $this->render('customer/customer_login/index.html.twig', [
+        return $this->renderForm('customer/customer_login/index.html.twig', [
             'controller_name' => 'CustomerLoginController',
-                     
+            'form' => $form,       
         ]);
     }
 
