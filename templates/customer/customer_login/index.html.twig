@@ -22,8 +22,11 @@
                             <div class="col-sm-8 mb-3">                        
                                 {{ form_widget(field, { 'attr': { 'class': 'form-control' }}) }}
                             </div>    
-                        {% endif %}                                                     
-                        <div class="error">{{ form_errors(field) }}</div>           
+                        {% endif %}
+                        <div class="col-sm-4 mb-3"></div>                                               
+                        <div class="col-sm-8 mb-3">
+                            <div class="error">{{ form_errors(field) }}</div>           
+                        </div>                                                                             
                     </div>                           
                 {% endfor %}
                 <div class="row">
@@ -31,10 +34,10 @@
                         <label for="none">&nbsp;</label>
                     </div>
                     <div class="col-sm-8 mb-3">                        
-                        <button type="submit" class="btn btn-outline-success">Register</button>
+                        <button type="submit" class="btn btn-outline-success">Login</button>
                     </div>
                 </div>                
-            {{ form_end(form) }}                                             
+            {{ form_end(form) }}                                                  
         </div>
     </div>    
 {% endblock %}

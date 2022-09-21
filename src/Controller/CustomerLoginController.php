@@ -19,13 +19,26 @@ class CustomerLoginController extends AbstractController
     #[Route('/login', name: 'app_customer_login')]
     public function index(Request $request, CustomerRepository $customerRepository, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
     {    
-        $customer = new Customer();
-        $form = $this->createForm(CustomerLoginType::class, $customer);
+        //$customer = new Customer();
+        $form = $this->createForm(CustomerLoginType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            // do anything else you need here, like send an email
+            $customer = $customerRepository->findOneBy(['email' => $form->get('email')->getData()]);
+            //dd($customer);
+            
+            $this->addFlash('notice', 'Welcome '. $customer->getName() . '.');
+
+            //return $this->redirectToRoute('app_customers_view');
+            return $this->render('customer/customers_view/index.html.twig');                    
+        }   
         
         return $this->renderForm('customer/customer_login/index.html.twig', [
             'controller_name' => 'CustomerLoginController',
             'form' => $form,       
-        ]);
+        ]);                       
     }
 
     #[Route('/', name: 'app_customers_view')]

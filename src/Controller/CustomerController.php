@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Customer;
 use App\Form\Customer1Type;
 use App\Repository\CustomerRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/customer')]
@@ -28,14 +30,26 @@ class CustomerController extends AbstractController
     }
 
     #[Route('/new', name: 'app_customer_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, CustomerRepository $customerRepository): Response
+    public function new(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager, CustomerRepository $customerRepository): Response
     {
         $customer = new Customer();
         $form = $this->createForm(Customer1Type::class, $customer);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $customer->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $customer,
+                    $form->get('plainPassword')->getData()
+                )
+            );
+
             $customerRepository->add($customer, true);
+
+            $entityManager->persist($customer);
+            $entityManager->flush();
+            
+            $this->addFlash('notice', 'Registration successfully!.');
 
             return $this->redirectToRoute('app_customer_index', [], Response::HTTP_SEE_OTHER);
         }
@@ -64,13 +78,24 @@ class CustomerController extends AbstractController
      */
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     #[Route('/{id}/edit', name: 'app_customer_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Customer $customer, CustomerRepository $customerRepository): Response
+    public function edit(Request $request, Customer $customer, CustomerRepository $customerRepository, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(Customer1Type::class, $customer);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $customer->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $customer,
+                    $form->get('password')->getData()
+                )
+            );
             $customerRepository->add($customer, true);
+
+            $entityManager->persist($customer);
+            $entityManager->flush();
+
+            $this->addFlash('notice', 'Registry updated successfully.');
 
             return $this->redirectToRoute('app_customer_index', [], Response::HTTP_SEE_OTHER);
         }
