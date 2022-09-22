@@ -18,7 +18,7 @@
             </thead>
             <tbody>
             {% for user in users %}
-                <tr>
+                <tr class="align-middle">
                     <td>{{ user.id }}</td>
                     <td>{{ user.email }}</td>
                     <td>{{ user.roles ? user.roles|json_encode : '' }}</td>                    

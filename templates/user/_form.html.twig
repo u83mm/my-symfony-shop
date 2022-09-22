@@ -4,12 +4,23 @@
             {% if field.vars.name != "_token" %}
                 <div class="col-sm-4 mb-3">
                     {{ form_label(field, null, {'label_attr': {'class': 'form-label'}}) }} 
-                </div>                                                
-            {% endif %}                    
-            <div class="col-sm-8 mb-3">                        
-                {{ form_widget(field, { 'attr': { 'class': 'form-control' }}) }}
-            </div>            
-            <div class="error">{{ form_errors(field) }}</div>           
+                </div>                                               
+            {% endif %}
+        
+            {% if field.vars.name == "agreeTerms" and is_granted('ROLE_ADMIN') %}                 
+                <div class="col-sm-8 mb-3 d-none">                        
+                    {{ form_widget(field, { 'attr': { 'class': 'd-inline-block float-none align-baseline' }}) }}
+                </div>                                                                                     
+            {% elseif field.vars.name == "agreeTerms" %}
+                <div class="col-sm-8 mb-3">                        
+                    {{ form_widget(field, { 'attr': { 'class': 'd-inline-block float-none align-baseline' }}) }}
+                </div>
+            {% else %}                
+                <div class="col-sm-8 mb-3">                        
+                    {{ form_widget(field, { 'attr': { 'class': 'form-control' }}) }}
+                </div>                                 
+            {% endif %}                                                                                         
+            <div class="error">{{ form_errors(field) }}</div>    
         </div>             
     {% endfor %}
         <div class="row">
