@@ -7,9 +7,14 @@
                 </div>                                               
             {% endif %}
         
-            <div class="col-sm-8 mb-3">                        
+            <div class="col-sm-8 mb-3">
+                {% if field.vars.name == "price" %}
+                    {{ form_widget(field, { 'attr': {'class': 'product-imput-price ' }}) }}
+                {% else %}
                     {{ form_widget(field, { 'attr': { 'class': 'form-control' }}) }}
-                </div>                                                                                         
+                {% endif %}                       
+                
+            </div>                                                                                         
             <div class="error">{{ form_errors(field) }}</div>    
         </div>             
     {% endfor %}

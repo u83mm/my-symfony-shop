@@ -3,7 +3,11 @@
         <div class="row {% if not field.vars.valid %}has-error{% endif %}">
             {% if field.vars.name != "_token" %}
                 <div class="col-sm-4 mb-3">
-                    {{ form_label(field, null, {'label_attr': {'class': 'form-label'}}) }} 
+                    {% if field.vars.name == "agreeTerms" %}
+                        {{ form_label(field, null, {'label_attr': {'class': 'form-check-label'}}) }} 
+                    {% else %}
+                        {{ form_label(field, null, {'label_attr': {'class': 'form-label'}}) }} 
+                    {% endif %}                    
                 </div>                                               
             {% endif %}
         
@@ -13,7 +17,7 @@
                 </div>                                                                                     
             {% elseif field.vars.name == "agreeTerms" %}
                 <div class="col-sm-8 mb-3">                        
-                    {{ form_widget(field, { 'attr': { 'class': 'd-inline-block float-none align-baseline' }}) }}
+                    {{ form_widget(field, { 'attr': { 'class': 'form-check-input d-inline-block float-none align-baseline' }}) }}
                 </div>
             {% else %}                
                 <div class="col-sm-8 mb-3">                        

@@ -9,7 +9,7 @@
             <div class="flex-item col-12 col-lg-6 bg-light mb-lg-3"> 
                 <div class="float-md-start col-md-5">
                     <figure class="figure text-center p-2">
-                        <img src={{ asset(product.image) }} class="figure-img img-fluid rounded" alt="main-picture">
+                        <img src={{ asset('images/products/' ~ product.image) }} class="figure-img img-fluid rounded" alt="main-picture">
                         <figcaption class="figure-caption">A caption for the above image.</figcaption>
                     </figure>
                 </div>               
@@ -20,6 +20,7 @@
                     aspernatur mollitia molestias quasi atque esse, odio voluptates nesciunt provident illo nemo 
                     dicta in     amet sint? Asperiores, rerum id.</p>
                     <p><strong>Price: </strong>{{ product.price }} €</p>
+                    <a class="btn btn-outline-primary" href="{{ path('app_product_show', {'id':  product.id}) }}">View article</a>
                 </div>                                                  
             </div>           
         {% endfor %}            
