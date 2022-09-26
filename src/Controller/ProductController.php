@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -18,10 +19,13 @@ class ProductController extends AbstractController
 {
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/', name: 'app_product_index', methods: ['GET'])]
-    public function index(ProductRepository $productRepository): Response
+    public function index(ProductRepository $productRepository, Session $session): Response
     {
+        $cart = $session->get('cart');
+
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),
+            'cart' => $cart,
         ]);
     }
 
@@ -46,10 +50,11 @@ class ProductController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_product_show', methods: ['GET'])]
-    public function show(Product $product): Response
+    public function show(Product $product, Session $session): Response
     {
         return $this->render('product/show.html.twig', [
-            'product' => $product,
+            'product'   => $product,
+            'cart'      => $session->get('cart'),
         ]);
     }
 

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CartController!{% endblock %}
+
+{% block main %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="text-center">
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Picture</th>
+                    <th>Price</th>
+                    <th>Qty</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in cart %}
+
+                {#{{ dump(product) }}#}
+                    <tr>
+                        <form action="{{ path('app_cart_update') }}" method="post">
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.description }}</td>
+                            <td><img class="img-product-cart" src="{{ asset('images/products/') ~ product.image }}" size="3" alt="{{ product.image }}"></td>
+                            <td>{{ product.price }}</td>
+                            <td><input class="qty" type="number" name="qty" id="qty" value="{{ product.qty }}"></td>
+                            <td><a class="btn btn-link" href="{{ path('app_cart_delete', {'id': product.id}) }}">Delete</a></td>
+                            <td>                            
+                                <input type="hidden" name="id" value="{{ product.id }}">                                
+                                <input class="btn btn-link" type="submit" value="Update">                            
+                            </td>
+                        </form>                       
+                    </tr>                                        
+                {% endfor %}                
+            </tbody>
+        </table>
+    </div>
+    
+{% endblock %}

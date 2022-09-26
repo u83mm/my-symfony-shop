@@ -10,7 +10,7 @@
                 <div class="float-md-start col-md-5">
                     <figure class="figure text-center p-2">
                         <img src={{ asset('images/products/' ~ product.image) }} class="figure-img img-fluid rounded" alt="main-picture">
-                        <figcaption class="figure-caption">A caption for the above image.</figcaption>
+                        <figcaption class="figure-caption">{{ product.name }}</figcaption>
                     </figure>
                 </div>               
                 
@@ -18,7 +18,7 @@
                     <p>{{ product.description }}</p>
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur distinctio neque 
                     aspernatur mollitia molestias quasi atque esse, odio voluptates nesciunt provident illo nemo 
-                    dicta in     amet sint? Asperiores, rerum id.</p>
+                    dicta in amet sint? Asperiores, rerum id.</p>
                     <p><strong>Price: </strong>{{ product.price }} €</p>
                     <a class="btn btn-outline-primary" href="{{ path('app_product_show', {'id':  product.id}) }}">View article</a>
                 </div>                                                  
