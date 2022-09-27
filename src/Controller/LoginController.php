@@ -12,12 +12,7 @@ class LoginController extends AbstractController
 {
     #[Route('/login', name: 'app_login')]
     public function index(AuthenticationUtils $authenticationUtils): Response
-    {
-        $session = new Session();
-        $session->start();
-
-        $session->remove('cart');
-
+    {           
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 

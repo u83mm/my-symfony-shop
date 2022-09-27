@@ -31,8 +31,23 @@
                                 <input class="btn btn-link" type="submit" value="Update">                            
                             </td>
                         </form>                       
-                    </tr>                                        
-                {% endfor %}                
+                    </tr>                                                           
+                {% endfor %}
+                    <tr>
+                        <td></td>
+                        <td colspan="2" class="text-end">Before taxes:</td>
+                        <td colspan="2">{{ price }} €</td>                        
+                    </tr>
+                    <tr>
+                        <td></td>                                               
+                        <td colspan="2" class="text-end">Taxes 21 %:</td>
+                        <td colspan="2">{{ taxex }} €</td>
+                    </tr>
+                    <tr>
+                        <td></td>                                               
+                        <td colspan="2" class="text-end">TOTAL:</td>
+                        <td colspan="2"><strong>{{ total }} €</strong></td>
+                    </tr>                
             </tbody>
         </table>
     </div>
