@@ -57,8 +57,8 @@ class CartController extends AbstractController
         }                                                              
         
         $session->set('cart', $cart);
-        $this->addFlash('notice', 'Added product successfully.');
-        return $this->redirectToRoute('app_cart_show', [], Response::HTTP_SEE_OTHER);                      
+        //$this->addFlash('notice', 'Added product successfully.');
+        return $this->redirectToRoute('app_cart', [], Response::HTTP_SEE_OTHER);                      
     }
 
     #[Route('/show', name: 'app_cart_show')]
