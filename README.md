@@ -19,7 +19,7 @@ Development of an e-commerce site
 <h3 align="left">Connect with me:</h3>
 <p align="left">
 <a href="https://linkedin.com/in/josé-mario-m-b0236037" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="josé-mario-m-b0236037" height="30" width="40" /></a>
-<a href="https://www.youtube.com/c/https://www.youtube.com/channel/uckl7p8va-o-_v6zqcitrs2q" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg" alt="https://www.youtube.com/channel/uckl7p8va-o-_v6zqcitrs2q" height="30" width="40" /></a>
+<a href="https://www.youtube.com/channel/UCKl7p8vA-o-_V6ZqcItrs2Q" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/youtube.svg" alt="https://www.youtube.com/channel/uckl7p8va-o-_v6zqcitrs2q" height="30" width="40" /></a>
 </p>
 
 <h3 align="left">Languages and Tools:</h3>
