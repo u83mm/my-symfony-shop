@@ -169,6 +169,32 @@ p {
 	width: 4em;
 }
 
+.mailIcon, .phoneIcon {
+	display: inline-block;
+}
+
+.mailIcon:hover {
+	color: darkgoldenrod;
+}
+
+.whatsappIcon {
+	color: green;
+}
+
+.youtubeIcon:hover {
+	color: red;
+}
+
+.linkedinIcon:hover {
+	color: dodgerblue;
+}
+
+footer span {
+	display: block;
+	color: black;
+}
+
+
 /************************************************************************
 *					Configuración para móviles							*
 ************************************************************************/

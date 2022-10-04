@@ -5,8 +5,9 @@
 {% block main %}
     <div class="row text-center">
         <h2>Your product has been added to your cart</h2>
-
-        <a href="{{ path('app_home') }}">Continue Shopping</a> |
-        <a href="#">Checkout</a>
+        <div class="col">
+            <a href="{{ path('app_home') }}">Continue Shopping</a> |
+            <a href="#">Checkout</a>
+        </div>        
     </div>        
 {% endblock %}

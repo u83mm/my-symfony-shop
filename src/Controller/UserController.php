@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\ChangePasswordType;
 use App\Form\UserType;
+use App\Form\ShowUserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -80,18 +82,18 @@ class UserController extends AbstractController
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, UserRepository $userRepository, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(ShowUserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
             // encode the plain password
-            $user->setPassword(
+            /*$user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
                     $form->get('password')->getData()
                 )
-            );
+            );*/
 
             $userRepository->add($user, true);
 
@@ -121,5 +123,49 @@ class UserController extends AbstractController
         }
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * Require ROLE_ADMIN for this actions
+     */
+    #[IsGranted('ROLE_ADMIN')]
+    #[Route('/{id}/change-password', name: 'app_user_change_passwd', methods: ['GET', 'POST'])]
+    public function changePassword(Request $request, User $user, UserRepository $userRepository, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher): Response
+    {
+        $form = $this->createForm(ChangePasswordType::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $password = $form->get('password')->getData();
+            $confirm_password = $form->get('confirm_password')->getData();
+
+            /* Checking if the password and confirm password are the same. */
+            if ($password !== $confirm_password) {
+                $this->addFlash('warning', 'Password are not equals.');
+                return $this->redirectToRoute('app_user_change_passwd', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+            }
+
+            /* encode the plain password */
+            $user->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $user,
+                    $form->get('password')->getData()
+                )
+            );
+
+            $userRepository->add($user, true);
+
+            $entityManager->persist($user);
+            $entityManager->flush();
+
+            $this->addFlash('notice', 'Password updated successfully.');
+
+            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('user/change_passwd.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
     }
 }

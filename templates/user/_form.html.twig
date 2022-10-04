@@ -1,30 +1,31 @@
 {{ form_start(form) }}
     {% for field in form.children %}
-        <div class="row {% if not field.vars.valid %}has-error{% endif %}">
+        <div class="row {% if not field.vars.valid %}has-error{% endif %}">            
             {% if field.vars.name != "_token" %}
-                <div class="col-sm-4 mb-3">
+                <div class="col-sm-4 mb-3">                    
                     {% if field.vars.name == "agreeTerms" %}
-                        {{ form_label(field, null, {'label_attr': {'class': 'form-check-label'}}) }} 
+                        {{ form_label(field, null, {'label_attr': {'class': 'form-check-label'}}) }}                     
                     {% else %}
                         {{ form_label(field, null, {'label_attr': {'class': 'form-label'}}) }} 
                     {% endif %}                    
                 </div>                                               
-            {% endif %}
+            {% endif %}            
         
             {% if field.vars.name == "agreeTerms" and is_granted('ROLE_ADMIN') %}                 
                 <div class="col-sm-8 mb-3 d-none">                        
-                    {{ form_widget(field, { 'attr': { 'class': 'd-inline-block float-none align-baseline' }}) }}
-                </div>                                                                                     
+                    {{ form_widget(field, { 'attr': { 'class': 'd-inline-block float-none align-baseline', 'checked': 'true' }}) }}
+                </div>            
             {% elseif field.vars.name == "agreeTerms" %}
                 <div class="col-sm-8 mb-3">                        
                     {{ form_widget(field, { 'attr': { 'class': 'form-check-input d-inline-block float-none align-baseline' }}) }}
                 </div>
-            {% else %}                
-                <div class="col-sm-8 mb-3">                        
-                    {{ form_widget(field, { 'attr': { 'class': 'form-control' }}) }}
+            {% else %}               
+                <div class="col-sm-8 mb-3">
+                    {{ form_widget(field, { 'attr': { 'class': 'form-control' }}) }}                                          
                 </div>                                 
-            {% endif %}                                                                                         
-            <div class="error">{{ form_errors(field) }}</div>    
+            {% endif %}            
+            <div class="col-sm-4"></div>                                                                                         
+            <div class="error col-sm-8">{{ form_errors(field) }}</div>    
         </div>             
     {% endfor %}
         <div class="row">
@@ -33,6 +34,9 @@
             </div>
             <div class="col-sm-8 mb-3">                        
                 <button class="btn btn-outline-success">{{ button_label|default('Save') }}</button>
-            </div>
+                {% if is_granted('ROLE_ADMIN') %} 
+                    <a class="btn btn-outline-primary" href="{{ path('app_user_change_passwd', {'id': user.id}) }}">Change Password</a>
+                {% endif %}
+            </div>           
         </div>                   
 {{ form_end(form) }}

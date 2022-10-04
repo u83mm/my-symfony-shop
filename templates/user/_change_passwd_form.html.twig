@@ -1,0 +1,27 @@
+
+{{ form_start(form) }}
+    {% for field in form.children %}
+        <div class="row {% if not field.vars.valid %}has-error{% endif %}">
+            {% if field.vars.name != "_token" %}
+                <div class="col-sm-4 mb-3">
+                    {{ form_label(field, null, {'label_attr': {'class': 'form-label'}}) }}                    
+                </div>                                               
+            {% endif %}
+        
+            <div class="col-sm-8 mb-3">                        
+                {{ form_widget(field, { 'attr': { 'class': 'form-control' }}) }}
+            </div> 
+            <div class="col-sm-4"></div>                                                                                        
+            <div class="error col-sm-8">{{ form_errors(field) }}</div>    
+        </div>             
+    {% endfor %}
+        <div class="row">
+            <div class="col-sm-4 mb-3">
+                <label for="none">&nbsp;</label>
+            </div>
+            <div class="col-sm-8 mb-3">                        
+                <button class="btn btn-outline-success">{{ button_label|default('Save') }}</button>
+                <a class="btn btn-outline-primary" href="#">Change Password</a>
+            </div>           
+        </div>                   
+{{ form_end(form) }}
