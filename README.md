@@ -34,14 +34,15 @@ Development of an e-commerce site
 
 <li>Build</li>
 
-    docker compose build    
+    docker compose build
+    mkdir db_vol log
+    cd log
+    mkdir apache db php   
     docker compose up -d
-    sudo chown -R mario:mario db_vol/ log/
+    docker exec -it symfony_php bash
+    composer install
+    exit
 
-<li>Restar docker containers</li>
-
-    docker compose down
-    docker compose up -d
 
 <li>Import SQL file "my_database.sql"</li>
 
@@ -49,12 +50,6 @@ Development of an e-commerce site
         http://localhost:8080/
         user: pepe
         passw: pepe
-
-<li>Logging in php/apache container</li>
-
-    docker exec -it symfony_php bash
-    composer install
-    exit
 
 <li>Accessing the application</li>
 
