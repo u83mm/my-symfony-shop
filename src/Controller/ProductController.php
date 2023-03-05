@@ -7,6 +7,7 @@ use App\Form\ProductType;
 use App\Repository\ProductRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -63,11 +64,16 @@ class ProductController extends AbstractController
     public function edit(Request $request, Product $product, ProductRepository $productRepository, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
+        $form->handleRequest($request);                
 
         if ($form->isSubmitted() && $form->isValid()) {
             $img = $form->get('image')->getData();
-            if ($img) {
+            
+            if ($img) {                
+                $filesystem = new Filesystem();    
+                $imgToRemove = $product->getImage();        
+                if($imgToRemove) $filesystem->remove($this->getParameter('images_directory') . "/" . $imgToRemove);
+
                 $originalFilename = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
                 $safeFilename = $slugger->slug($originalFilename);
                 $newFilename = $safeFilename.'-'.uniqid().'.'.$img->guessExtension();
