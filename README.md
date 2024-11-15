@@ -34,12 +34,10 @@ Development of an e-commerce site
 
 <li>Build</li>
 
-    docker compose build
-    mkdir db_vol log
-    cd log
-    mkdir apache db php   
+    mkdir log log/apache log/db log/php
+    docker compose build  
     docker compose up -d
-    docker exec -it symfony_php bash
+    docker exec -it php bash
     composer install
     exit
 
@@ -50,6 +48,8 @@ Development of an e-commerce site
         http://localhost:8080/
         user: pepe
         passw: pepe
+
+        Import "my_database.sql" file from MariaDB directory.
 
 <li>Accessing the application</li>
 
