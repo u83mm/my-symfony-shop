@@ -21,6 +21,5 @@
 
 ###> my files to ignore ###
 /log/
-/Readme
-/db_vol/
+.env
 ###< my files to ignore ###
