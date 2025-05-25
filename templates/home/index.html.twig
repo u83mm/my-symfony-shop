@@ -20,7 +20,7 @@
                     aspernatur mollitia molestias quasi atque esse, odio voluptates nesciunt provident illo nemo 
                     dicta in amet sint? Asperiores, rerum id.</p>
                     <p><strong>Price: </strong>{{ product.price }} €</p>
-                    <a class="btn btn-outline-primary" href="{{ path('app_product_show', {'id':  product.id}) }}">View article</a>
+                    <a class="btn btn-outline-primary" href="{{ path('app_product_show', {'id':  product.id}) }}">{{ 'view article'|trans|capitalize }}</a>
                 </div>                                                  
             </div>           
         {% endfor %}            
