@@ -7,3 +7,7 @@ controllers:
 app_logout:
             path: /logout
             methods: GET
+
+change_locale:
+    path: /change-locale/{locale}
+    controller: App\Controller\LocaleController::change
