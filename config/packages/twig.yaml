@@ -1,8 +1,12 @@
 twig:
+<<<<<<< ours
     default_path: '%kernel.project_dir%/templates'
     globals:
         year: '@App\Services\ShowYear'       
     form_themes: ['bootstrap_5_layout.html.twig']
+=======
+    file_name_pattern: '*.twig'
+>>>>>>> theirs
 
 when@test:
     twig:
