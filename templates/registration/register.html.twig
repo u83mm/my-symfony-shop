@@ -3,7 +3,7 @@
 {% block title %}Register{% endblock %}
 
 {% block main %}
-    <h1>Register</h1>
+    <h2 class='text-center pb-4'>{{ 'register form'|trans|upper }}</h2>
     <div class="row">
         <div class="col-lg-6 mx-auto">
             {{ form_start(registrationForm) }}
@@ -14,9 +14,9 @@
                                 {{ form_label(field, null, {'label_attr': {'class': 'form-label'}}) }} 
                             </div>                                                
                         {% endif %}
-                        {% if field.vars.name == "agreeTerms" %}
+                        {% if field.vars.name == "agreeTerms" %}                            
                             <div class="col-sm-8 mb-3">                        
-                                {{ form_widget(field) }}
+                                {{ form_widget(field, { 'attr': { 'class': 'form-check-imput' } }) }}
                             </div> 
                         {% else %}
                             <div class="col-sm-8 mb-3">                        
@@ -31,7 +31,7 @@
                         <label for="none">&nbsp;</label>
                     </div>
                     <div class="col-sm-8 mb-3">                        
-                        <button type="submit" class="btn btn-outline-success">Register</button>
+                        <button type="submit" class="btn btn-outline-success">{{ 'register'|trans|capitalize }}</button>
                     </div>
                 </div>                
             {{ form_end(registrationForm) }}
