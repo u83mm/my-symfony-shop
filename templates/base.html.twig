@@ -55,7 +55,7 @@
 						</li>
 						<li class="nav-item d-none d-sm-none d-lg-inline-block">
 							{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-								<a class="nav-link" aria-current="page" href="{{ path('app_user_new') }}">{{ 'registration'|trans|capitalize }}</a>															
+								<a class="nav-link" aria-current="page" href="{{ path('app_register') }}">{{ 'registration'|trans|capitalize }}</a>															
 							{% endif %}							
 						</li>
 						<li class="nav-item d-none d-sm-none d-lg-inline-block">
