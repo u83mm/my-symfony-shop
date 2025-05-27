@@ -5,7 +5,7 @@ controllers:
     type: attribute
 
 app_logout:
-            path: /logout
+            path: /{_locale}/logout
             methods: GET
 
 change_locale:
