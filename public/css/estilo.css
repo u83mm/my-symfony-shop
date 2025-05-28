@@ -194,6 +194,11 @@ footer span {
 	color: black;
 }
 
+.languageFlag {
+	width: 1.5em;
+	margin-right: 0.5em;
+}
+
 
 /************************************************************************
 *					Configuración para móviles							*
