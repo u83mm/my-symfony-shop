@@ -3,6 +3,6 @@
 {% block title %}Panel Admin{% endblock %}
 
 {% block main %}
-<a class="btn btn-outline-secondary" href="{{ path('app_user_index') }}">Users</a>
-<a class="btn btn-outline-secondary" href="{{ path('app_product_index') }}">Products</a>
+<a class="btn btn-outline-secondary" href="{{ path('app_user_index') }}">{{ 'users'|trans|capitalize }}</a>
+<a class="btn btn-outline-secondary" href="{{ path('app_product_index') }}">{{ 'products'|trans|capitalize }}</a>
 {% endblock %}
