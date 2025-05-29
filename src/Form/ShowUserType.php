@@ -11,19 +11,38 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class ShowUserType extends AbstractType
 {
+    public function __construct(private TranslatorInterface $translator)
+    {
+        
+    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('surname')
-            ->add('last_name')
-            ->add('address')
-            ->add('state')
-            ->add('city')
-            ->add('email')
+            ->add('name', null, [
+                'label' => ucfirst($this->translator->trans('name')) . ":"
+            ])
+            ->add('surname', null, [
+                'label' => ucfirst($this->translator->trans('surname')) . ":"
+            ])
+            ->add('last_name', null, [
+                'label' => ucwords($this->translator->trans('last name')) . ":"
+            ])
+            ->add('address', null, [
+                'label' => ucfirst($this->translator->trans('address')) . ":"
+            ])
+            ->add('state', null, [
+                'label' => ucfirst($this->translator->trans('state')) . ":"
+            ])
+            ->add('city', null, [
+                'label' => ucfirst($this->translator->trans('city')) . ":"
+            ])
+            ->add('email', null, [
+                'label' => "Email:"
+            ])
             /*->add('roles')*/                        
         ;
     }

@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
-#[Route('/product')]
+#[Route('/{_locale}/product')]
 class ProductController extends AbstractController
 {
     #[IsGranted('ROLE_ADMIN')]

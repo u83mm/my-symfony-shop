@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New User{% endblock %}
+{% block title %}{{ 'new user'|trans|title }}{% endblock %}
 
 {% block main %}
-    <h1>Registration form</h1>
+    <h1 class="pb-4">{{ 'registration form'|trans|capitalize }}</h1>
     <div class="row">
         <div class="col-lg-6 mx-auto">
             {{ include('user/_form.html.twig') }}
@@ -11,5 +11,5 @@
     </div>
     
 
-    <a class="btn btn-outline-primary" href="{{ path('app_user_index') }}">back to list</a>
+    <a class="btn btn-outline-primary" href="{{ path('app_user_index') }}">{{ 'go back'|trans|capitalize }}</a>
 {% endblock %}
