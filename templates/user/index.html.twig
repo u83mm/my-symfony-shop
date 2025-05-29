@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}{{ 'user index'|trans|capitalize }}{% endblock %}
 
 {% block main %}
-    <h1>User index</h1>
+    <h1>{{ 'user index'|trans|capitalize }}</h1>
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
@@ -24,8 +24,8 @@
                     <td>{{ user.roles ? user.roles|json_encode : '' }}</td>                    
                     <td>{{ user.name }}</td>
                     <td>
-                        <a class="btn btn-outline-success" href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                        <a class="btn btn-outline-success" href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                        <a class="btn btn-outline-success" href="{{ path('app_user_show', {'id': user.id}) }}">{{ 'show'|trans|capitalize }}</a>
+                        <a class="btn btn-outline-success" href="{{ path('app_user_edit', {'id': user.id}) }}">{{ 'edit'|trans|capitalize }}</a>
                     </td>
                 </tr>
             {% else %}
@@ -37,5 +37,5 @@
         </table>
     </div>    
 
-    <a class="btn btn-outline-primary" href="{{ path('app_user_new') }}">Create new</a>
+    <a class="btn btn-outline-primary" href="{{ path('app_user_new') }}">{{ 'create new'|trans|capitalize }}</a>
 {% endblock %}
