@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product index{% endblock %}
+{% block title %}{{ 'product index'|trans|capitalize }}{% endblock %}
 
 {% block main %}
-    <h1>Product index</h1>
+    <h1>{{ 'product index'|trans|upper }}</h1>
 
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead class="text-center">
                 <tr>
                     <th>Id</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Image</th>
-                    <th>actions</th>
+                    <th>{{ 'name'|trans|capitalize }}</th>
+                    <th>{{ 'description'|trans|capitalize }}</th>
+                    <th>{{ 'price'|trans|capitalize }}</th>
+                    <th>{{ 'image'|trans|capitalize }}</th>
+                    <th>{{ 'options'|trans|capitalize }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,9 +25,9 @@
                     <td><p>{{ product.description }}</p></td>
                     <td>{{ product.price }}€</td>
                     <td><img class="img-product-index" src="{{ asset('images/products/' ~ product.image) }}"></td>
-                    <td>
-                        <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
-                        <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
+                    <td class="options">
+                        <a class="buttonLink" href="{{ path('app_product_show', {'id': product.id}) }}">{{ 'show'|trans|capitalize }}</a>
+                        <a class="buttonLink" href="{{ path('app_product_edit', {'id': product.id}) }}">{{ 'edit'|trans|capitalize }}</a>
                     </td>
                 </tr>
             {% else %}
@@ -39,5 +39,5 @@
         </table>
     </div>    
 
-    <a class="btn btn-outline-primary" href="{{ path('app_product_new') }}">Create new</a>
+    <a class="btn btn-outline-primary" href="{{ path('app_product_new') }}">{{ 'new product'|trans|capitalize }}</a>
 {% endblock %}
