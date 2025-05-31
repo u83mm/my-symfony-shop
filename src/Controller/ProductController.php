@@ -32,13 +32,39 @@ class ProductController extends AbstractController
 
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, ProductRepository $productRepository): Response
+    public function new(Request $request, ProductRepository $productRepository, SluggerInterface $slugger): Response
     {
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $img = $form->get('image')->getData();
+
+            if ($img) {                
+                $filesystem = new Filesystem();    
+                $imgToRemove = $product->getImage();        
+                if($imgToRemove) $filesystem->remove($this->getParameter('images_directory') . "/" . $imgToRemove);
+
+                $originalFilename = pathinfo($img->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$img->guessExtension();
+
+                // Move the file to the directory where products are stored
+                try {
+                    $img->move(
+                        $this->getParameter('images_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    echo "The image can't be uploaded.";
+                }
+
+                // updates the 'image' property to store the IMG file name
+                // instead of its contents
+                $product->setImage($newFilename);
+            }
+
             $productRepository->add($product, true);
 
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
@@ -92,6 +118,7 @@ class ProductController extends AbstractController
                 // instead of its contents
                 $product->setImage($newFilename);
             }
+
             $productRepository->add($product, true);
 
             return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
