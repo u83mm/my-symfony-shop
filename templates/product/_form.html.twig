@@ -23,7 +23,7 @@
                 <label for="none">&nbsp;</label>
             </div>
             <div class="col-sm-8 mb-3">                        
-                <button class="btn btn-outline-success">{{ button_label|default('Save') }}</button>
+                <button class="btn btn-outline-success">{{ button_label|default('save'|trans|capitalize) }}</button>
             </div>
         </div>  
 {{ form_end(form) }}

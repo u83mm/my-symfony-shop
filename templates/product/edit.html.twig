@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Product{% endblock %}
+{% block title %}{{ 'edit product'|trans|capitalize }}{% endblock %}
 
 {% block main %}
-    <h1>Edit Product</h1>
+    <h1>{{ 'edit product'|trans|capitalize }}</h1>
     <div class="row">
         <figure class="figure col-3 text-center">
             <img class="figure-img" src="{{ asset('images/products/' ~ product.image) }}" alt="image {{ product.image }}">
             <figcaption>{{ product.name }}</figcaption>
         </figure>
         <div class="col-lg-7">
-            {{ include('product/_form.html.twig', {'button_label': 'Update'}) }}
+            {{ include('product/_form.html.twig', {'button_label': 'update'|trans|capitalize}) }}
         </div>
     </div>
     <div class="row">
         <div class="col-3 text-center">
-            <a class="btn btn-outline-primary" href="{{ path('app_product_index') }}">back to list</a>
+            <a class="btn btn-outline-primary" href="{{ path('app_product_index') }}">{{ 'go back'|trans|capitalize }}</a>
 
             {{ include('product/_delete_form.html.twig') }}
         </div>
