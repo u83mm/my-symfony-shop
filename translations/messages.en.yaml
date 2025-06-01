@@ -1,1 +1,5 @@
 add products to cart alert: 'To add products you must be logged in!.'
+admin alert: 'there was a problem, contact to the system admin!.'
+saved product: 'saved product!.'
+updated product: 'updated product!.'
+delected product: 'delected product!.'
