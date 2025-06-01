@@ -7,7 +7,7 @@ services:
         SYSTEM_GROUP: ${SYSTEM_GROUP}
     container_name: db    
     env_file:
-      - "./MariaDB/.env"      
+      - "./MariaDB/.environ"      
     ports:
       - "3306:3306"
     volumes: 
