@@ -1,16 +1,17 @@
 services:
   db:        
-    build: ./MariaDB/
+    build:
+      context: ./MariaDB/
+      args:
+        SYSTEM_USER: ${SYSTEM_USER}
+        SYSTEM_GROUP: ${SYSTEM_GROUP}
     container_name: db    
-    environment:
-      MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: my_database
-      MYSQL_USER: pepe
-      MYSQL_PASSWORD: pepe
+    env_file:
+      - "./MariaDB/.env"      
     ports:
       - "3306:3306"
     volumes: 
-        - db_vol:/var/lib/mysql
+        - "./db_vol:/var/lib/mysql"
         - "./log/db:/var/log"       
 
   phpmyadmin:    
@@ -24,7 +25,12 @@ services:
   web:
       depends_on:
         - db      
-      build: .
+      build: 
+        context: .
+        args:
+          SYSTEM_USER: ${SYSTEM_USER}
+          SYSTEM_GROUP: ${SYSTEM_GROUP}
+
       container_name: php
       ports:
       - "80:80"
