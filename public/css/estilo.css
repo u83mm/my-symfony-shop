@@ -151,6 +151,10 @@ p {
 	animation-fill-mode: forwards;
 }
 
+img {
+	max-width: 100%;
+}
+
 .img-product-index {
 	height: 5em;
 	max-width: 100%;
