@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: db:3306
--- Tiempo de generación: 08-10-2022 a las 10:20:18
--- Versión del servidor: 10.8.3-MariaDB-1:10.8.3+maria~jammy
--- Versión de PHP: 8.0.22
+-- Host: db
+-- Generation Time: May 31, 2025 at 05:09 PM
+-- Server version: 11.5.2-MariaDB-ubu2404
+-- PHP Version: 8.2.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,23 +18,23 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `my_database`
+-- Database: `my_database`
 --
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `doctrine_migration_versions`
+-- Table structure for table `doctrine_migration_versions`
 --
 
 CREATE TABLE `doctrine_migration_versions` (
-  `version` varchar(191) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `version` varchar(191) NOT NULL,
   `executed_at` datetime DEFAULT NULL,
   `execution_time` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 --
--- Volcado de datos para la tabla `doctrine_migration_versions`
+-- Dumping data for table `doctrine_migration_versions`
 --
 
 INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
@@ -48,14 +48,14 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `messenger_messages`
+-- Table structure for table `messenger_messages`
 --
 
 CREATE TABLE `messenger_messages` (
   `id` bigint(20) NOT NULL,
-  `body` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `headers` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue_name` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `body` longtext NOT NULL,
+  `headers` longtext NOT NULL,
+  `queue_name` varchar(190) NOT NULL,
   `created_at` datetime NOT NULL,
   `available_at` datetime NOT NULL,
   `delivered_at` datetime DEFAULT NULL
@@ -64,7 +64,7 @@ CREATE TABLE `messenger_messages` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `order`
+-- Table structure for table `order`
 --
 
 CREATE TABLE `order` (
@@ -76,7 +76,7 @@ CREATE TABLE `order` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `order_content`
+-- Table structure for table `order_content`
 --
 
 CREATE TABLE `order_content` (
@@ -91,7 +91,7 @@ CREATE TABLE `order_content` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `order_product`
+-- Table structure for table `order_product`
 --
 
 CREATE TABLE `order_product` (
@@ -102,56 +102,56 @@ CREATE TABLE `order_product` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `product`
+-- Table structure for table `product`
 --
 
 CREATE TABLE `product` (
   `id` int(11) NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `description` longtext NOT NULL,
   `price` decimal(10,2) NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Volcado de datos para la tabla `product`
+-- Dumping data for table `product`
 --
 
 INSERT INTO `product` (`id`, `name`, `description`, `price`, `image`) VALUES
-(52, 'Fender Bass', 'Odio dolorum reiciendis tempore ad laudantium omnis deserunt. Nisi ut hic in architecto dolorem ducimus ut. Et atque laudantium fugit aspernatur.', '32.33', 'bass-ic-lh-632e25f6790a9.png'),
-(53, 'Queen.', 'Sed in libero sequi et facere modi. Dolor est architecto quia quaerat quis eaque voluptate. Aliquid deleniti voluptate soluta et laudantium qui.', '493.50', 'bass-ic-632e269eb396a.png'),
-(54, 'And so.', 'Quisquam voluptatem ratione vel est accusantium. Magnam similique dolor architecto quo molestias. Repellat quae debitis et aperiam consequatur vel id.', '300.50', 'btr300-632e26d0ec812.png'),
-(55, 'Latitude.', 'Animi consectetur quis voluptatibus quo asperiores repellat. Magni quod reprehenderit rem pariatur.', '24.25', 'fg700s-632e271809675.png'),
-(56, 'Alice.', 'Consequatur laudantium ducimus est. Animi sint dicta voluptatem numquam recusandae aperiam. Amet nobis voluptas animi natus ut asperiores.', '493.00', 'hofner-632e272f28527.png'),
-(57, 'I!\' said.', 'Quo similique officiis repellat recusandae quae. Modi amet quisquam blanditiis tempore culpa nesciunt voluptas. Esse iste aut rem similique. Quasi consequatur enim dolores consequuntur fugit.', '233.00', 'ibanez-632e2743db7fe.png'),
-(58, 'Duchess.', 'Est culpa eum aut nesciunt expedita vero consectetur. Occaecati libero deserunt aut dolorem aliquam magni. Possimus non deleniti assumenda ex ad esse. Aut quia ut sed reiciendis dignissimos.', '103.50', 'precision-632e2766a1015.png'),
-(59, 'Gibson Les Paul', 'Quam at quisquam delectus repellat suscipit. Et officia ipsam molestiae.', '174.20', 'les-paul-632e254b1836e.png'),
-(60, 'Hatter.', 'Expedita unde earum explicabo officiis et dolor voluptas libero. Et ab et quis. Sit qui aut similique nihil et quia.', '75.80', 'ludwig-632e278d3570b.png'),
-(61, 'MUST be.', 'Sit quam sapiente velit blanditiis. Voluptas doloribus error et est ut corrupti. Praesentium incidunt magnam reiciendis excepturi aliquid. Non magni itaque exercitationem facere ut molestias.', '423.00', 'pearl-632e27a211763.png');
+(52, 'Fender Bass', 'Odio dolorum reiciendis tempore ad laudantium omnis deserunt. Nisi ut hic in architecto dolorem ducimus ut. Et atque laudantium fugit aspernatur.', 32.33, 'bass-ic-640268c5aa6b2.png'),
+(53, 'Queen.', 'Sed in libero sequi et facere modi. Dolor est architecto quia quaerat quis eaque voluptate. Aliquid deleniti voluptate soluta et laudantium qui.', 493.50, 'bass-ic1-640247403c24d.png'),
+(54, 'And so.', 'Quisquam voluptatem ratione vel est accusantium. Magnam similique dolor architecto quo molestias. Repellat quae debitis et aperiam consequatur vel id.', 300.50, 'btr300-632e26d0ec812.png'),
+(55, 'Latitude.', 'Animi consectetur quis voluptatibus quo asperiores repellat. Magni quod reprehenderit rem pariatur.', 24.25, 'fg700s-632e271809675.png'),
+(56, 'Alice.', 'Consequatur laudantium ducimus est. Animi sint dicta voluptatem numquam recusandae aperiam. Amet nobis voluptas animi natus ut asperiores.', 493.00, 'hofner-632e272f28527.png'),
+(57, 'I!\' said.', 'Quo similique officiis repellat recusandae quae. Modi amet quisquam blanditiis tempore culpa nesciunt voluptas. Esse iste aut rem similique. Quasi consequatur enim dolores consequuntur fugit.', 233.00, 'ibanez-632e2743db7fe.png'),
+(58, 'Duchess.', 'Est culpa eum aut nesciunt expedita vero consectetur. Occaecati libero deserunt aut dolorem aliquam magni. Possimus non deleniti assumenda ex ad esse. Aut quia ut sed reiciendis dignissimos.', 103.50, 'precision-632e2766a1015.png'),
+(59, 'Gibson Les Paul', 'Quam at quisquam delectus repellat suscipit. Et officia ipsam molestiae.', 174.20, 'les-paul-632e254b1836e.png'),
+(60, 'Hatter.', 'Expedita unde earum explicabo officiis et dolor voluptas libero. Et ab et quis. Sit qui aut similique nihil et quia.', 75.80, 'ludwig-632e278d3570b.png'),
+(61, 'MUST be.', 'Sit quam sapiente velit blanditiis. Voluptas doloribus error et est ut corrupti. Praesentium incidunt magnam reiciendis excepturi aliquid. Non magni itaque exercitationem facere ut molestias.', 423.00, 'pearl-632e27a211763.png');
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
   `id` int(11) NOT NULL,
-  `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `surname` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `state` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `city` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `roles` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:json)',
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `surname` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `state` varchar(100) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `email` varchar(180) NOT NULL,
+  `roles` longtext NOT NULL COMMENT '(DC2Type:json)',
+  `password` varchar(255) NOT NULL,
   `registration_date` datetime NOT NULL,
-  `secret` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `secret` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Volcado de datos para la tabla `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `name`, `surname`, `last_name`, `state`, `city`, `address`, `email`, `roles`, `password`, `registration_date`, `secret`) VALUES
@@ -169,17 +169,17 @@ INSERT INTO `user` (`id`, `name`, `surname`, `last_name`, `state`, `city`, `addr
 (24, 'Thora Pagac', 'Tevin', 'Wolf', 'Netherlands', 'Lake Georgianahaven', '96956 Julie Forest\nAlanaside, WI 71613', 'quincy71@gmail.com', '[]', 'I:Z3]QIh-MS', '0000-00-00 00:00:00', NULL);
 
 --
--- Índices para tablas volcadas
+-- Indexes for dumped tables
 --
 
 --
--- Indices de la tabla `doctrine_migration_versions`
+-- Indexes for table `doctrine_migration_versions`
 --
 ALTER TABLE `doctrine_migration_versions`
   ADD PRIMARY KEY (`version`);
 
 --
--- Indices de la tabla `messenger_messages`
+-- Indexes for table `messenger_messages`
 --
 ALTER TABLE `messenger_messages`
   ADD PRIMARY KEY (`id`),
@@ -188,20 +188,20 @@ ALTER TABLE `messenger_messages`
   ADD KEY `IDX_75EA56E016BA31DB` (`delivered_at`);
 
 --
--- Indices de la tabla `order`
+-- Indexes for table `order`
 --
 ALTER TABLE `order`
   ADD PRIMARY KEY (`id`),
   ADD KEY `IDX_F5299398A76ED395` (`user_id`);
 
 --
--- Indices de la tabla `order_content`
+-- Indexes for table `order_content`
 --
 ALTER TABLE `order_content`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `order_product`
+-- Indexes for table `order_product`
 --
 ALTER TABLE `order_product`
   ADD PRIMARY KEY (`order_id`,`product_id`),
@@ -209,64 +209,64 @@ ALTER TABLE `order_product`
   ADD KEY `IDX_2530ADE64584665A` (`product_id`);
 
 --
--- Indices de la tabla `product`
+-- Indexes for table `product`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indices de la tabla `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `UNIQ_8D93D649E7927C74` (`email`);
 
 --
--- AUTO_INCREMENT de las tablas volcadas
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT de la tabla `messenger_messages`
+-- AUTO_INCREMENT for table `messenger_messages`
 --
 ALTER TABLE `messenger_messages`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `order`
+-- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `order_content`
+-- AUTO_INCREMENT for table `order_content`
 --
 ALTER TABLE `order_content`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `product`
+-- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
--- AUTO_INCREMENT de la tabla `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
--- Restricciones para tablas volcadas
+-- Constraints for dumped tables
 --
 
 --
--- Filtros para la tabla `order`
+-- Constraints for table `order`
 --
 ALTER TABLE `order`
   ADD CONSTRAINT `FK_F5299398A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
--- Filtros para la tabla `order_product`
+-- Constraints for table `order_product`
 --
 ALTER TABLE `order_product`
   ADD CONSTRAINT `FK_2530ADE64584665A` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`) ON DELETE CASCADE,
