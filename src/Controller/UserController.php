@@ -14,10 +14,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/{_locale}/user')]
 class UserController extends AbstractController
-{    
+{ 
+    public function __construct(private TranslatorInterface $translator)
+    {
+        
+    }   
     /**
      * Require ROLE_ADMIN for this actions
      */
@@ -40,22 +45,32 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {            
             
-            // encode the plain password
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('password')->getData()
-                )
-            );
+            try {
+                // encode the plain password
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $form->get('password')->getData()
+                    )
+                );
 
-            $userRepository->add($user, true);
+                $userRepository->add($user, true);
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+                $entityManager->persist($user);
+                $entityManager->flush();
 
-            $this->addFlash('notice', 'User created successfully.');
-           
-            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);          
+                $this->addFlash('notice', 'User created successfully.');
+            
+                return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER); 
+
+            } catch (\Throwable $th) {
+                if($this->isGranted('ROLE_ADMIN')) {
+                    $this->addFlash('error', $th->getMessage());
+                }
+                else {
+                    $this->addFlash('error', ucfirst($this->translator->trans('alert admin')));
+                }
+            }         
         }
 
         return $this->render('user/new.html.twig', [
@@ -96,14 +111,24 @@ class UserController extends AbstractController
                 )
             );*/
 
-            $userRepository->add($user, true);
+            try {
+                $userRepository->add($user, true);
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+                $entityManager->persist($user);
+                $entityManager->flush();
 
-            $this->addFlash('notice', 'User updated successfully.');
+                $this->addFlash('notice', 'User updated successfully.');
 
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+
+            } catch (\Throwable $th) {
+                if($this->isGranted(('ROLE_ADMIN'))) {
+                    $this->addFlash('error', $th->getMessage());
+                }
+                else {
+                    $this->addFlash('error', ucfirst($this->translator->trans('alert admin')));
+                }
+            }
         }
 
         return $this->render('user/edit.html.twig', [
@@ -119,11 +144,23 @@ class UserController extends AbstractController
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, UserRepository $userRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $userRepository->remove($user, true);
-        }
+        try {
+            if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
+                $userRepository->remove($user, true);
+            }
 
-        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+
+        } catch (\Throwable $th) {
+            if($this->isGranted('ROLE_ADMIN')) {
+                $this->addFlash('error', $th->getMessage());
+            }
+            else {
+                $this->addFlash('error', ucfirst($this->translator->trans('alert admin')));
+            }
+
+            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+        }
     }
 
     /**
@@ -137,31 +174,41 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $password = $form->get('password')->getData();
-            $confirm_password = $form->get('confirm_password')->getData();
+            try {
+                $password = $form->get('password')->getData();
+                $confirm_password = $form->get('confirm_password')->getData();
 
-            /* Checking if the password and confirm password are the same. */
-            if ($password !== $confirm_password) {
-                $this->addFlash('warning', 'Password are not equals.');
-                return $this->redirectToRoute('app_user_change_passwd', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+                /* Checking if the password and confirm password are the same. */
+                if ($password !== $confirm_password) {
+                    $this->addFlash('warning', 'Password are not equals.');
+                    return $this->redirectToRoute('app_user_change_passwd', ['id' => $user->getId()], Response::HTTP_SEE_OTHER);
+                }
+
+                /* encode the plain password */
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $form->get('password')->getData()
+                    )
+                );
+
+                $userRepository->add($user, true);
+
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                $this->addFlash('notice', 'Password updated successfully.');
+
+                return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+
+            } catch (\Throwable $th) {
+                if($this->isGranted('ROLE_ADMIN')) {
+                    $this->addFlash('error', $th->getMessage());
+                }
+                else {
+                    $this->addFlash('error', ucfirst($this->translator->trans('alert admin')));
+                }
             }
-
-            /* encode the plain password */
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('password')->getData()
-                )
-            );
-
-            $userRepository->add($user, true);
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            $this->addFlash('notice', 'Password updated successfully.');
-
-            return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('user/change_passwd.html.twig', [
