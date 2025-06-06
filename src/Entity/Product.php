@@ -31,6 +31,10 @@ class Product
     #[ORM\ManyToMany(targetEntity: Order::class, mappedBy: 'product')]
     private Collection $orders;
 
+    #[ORM\ManyToOne(inversedBy: 'product', cascade: ['persist'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?ProductDescription $productDescription = null;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
@@ -112,6 +116,18 @@ class Product
         if ($this->orders->removeElement($order)) {
             $order->removeProduct($this);
         }
+
+        return $this;
+    }
+
+    public function getProductDescription(): ?ProductDescription
+    {
+        return $this->productDescription;
+    }
+
+    public function setProductDescription(?ProductDescription $productDescription): static
+    {
+        $this->productDescription = $productDescription;
 
         return $this;
     }
