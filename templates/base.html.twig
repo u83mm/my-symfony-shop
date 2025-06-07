@@ -105,6 +105,10 @@
 			</nav>
 			{% endblock %}			
 			<main class="pt-3 pb-3">
+				<div class="text-end pe-1">
+					<a class="p-1" href="{{ path('app_change_locale', { 'locale': 'en' }) }}"><img class="me-xl-1 languageFlag" src="{{ asset('images/english-flag.svg') }}" alt="English flag">{{ 'english'|trans|capitalize }}</a>
+					<a class="p-1" href="{{ path('app_change_locale', { 'locale': 'es' }) }}"><img class="me-xl-1 languageFlag" src="{{ asset('images/spanish-flag.svg') }}" alt="">{{ 'spanish'|trans|capitalize }}</a>
+				</div>
 				{% if is_granted('IS_AUTHENTICATED_FULLY') %}					
 					<p>{{ 'logged as'|trans|capitalize }}: <strong>{{ app.user.name|trans|capitalize }}</strong></p>									
 				{% endif %}
@@ -117,11 +121,7 @@
 							</div>
 						{% endfor %}
 					{% endfor %}
-				{% endblock %}
-				<div class="text-end pe-1">
-					<a class="p-1" href="{{ path('app_change_locale', { 'locale': 'en' }) }}"><img class="me-xl-1 languageFlag" src="{{ asset('images/english-flag.svg') }}" alt="English flag">{{ 'english'|trans|capitalize }}</a>
-					<a class="p-1" href="{{ path('app_change_locale', { 'locale': 'es' }) }}"><img class="me-xl-1 languageFlag" src="{{ asset('images/spanish-flag.svg') }}" alt="">{{ 'spanish'|trans|capitalize }}</a>
-				</div>
+				{% endblock %}				
 				{% block main %}{% endblock %}
 			</main>
 			<footer class="text-center rounded bg-success p-2 bg-opacity-25 border border-primary">
