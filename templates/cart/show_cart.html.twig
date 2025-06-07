@@ -1,23 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CartController!{% endblock %}
+{% block title %}{{ 'cart products'|trans|capitalize }}{% endblock %}
 
 {% block main %}
     <div class="table-responsive">
         <table class="table table-bordered table-striped">
             <thead class="text-center">
                 <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Picture</th>
-                    <th>Price</th>
-                    <th>Qty</th>
+                    <th>{{ 'name'|trans|capitalize }}</th>
+                    <th>{{ 'description'|trans|capitalize }}</th>
+                    <th>{{ 'picture'|trans|capitalize }}</th>
+                    <th>{{ 'price'|trans|capitalize }}</th>
+                    <th>{{ 'qty'|trans|capitalize }}</th>
                 </tr>
             </thead>
             <tbody>
-                {% for product in cart %}
-
-                {#{{ dump(product) }}#}
+                {% for product in cart %}                
                     <tr>
                         <form action="{{ path('app_cart_update') }}" method="post">
                             <td>{{ product.name }}</td>
@@ -25,22 +23,22 @@
                             <td><img class="img-product-cart" src="{{ asset('images/products/') ~ product.image }}" size="3" alt="{{ product.image }}"></td>
                             <td>{{ product.price }}</td>
                             <td><input class="qty" type="number" name="qty" id="qty" value="{{ product.qty }}"></td>
-                            <td><a class="btn btn-link" href="{{ path('app_cart_delete', {'id': product.id}) }}">Delete</a></td>
+                            <td><a class="btn btn-link" href="{{ path('app_cart_delete', {'id': product.id}) }}">{{ 'delete'|trans|capitalize }}</a></td>
                             <td>                            
                                 <input type="hidden" name="id" value="{{ product.id }}">                                
-                                <input class="btn btn-link" type="submit" value="Update">                            
+                                <input class="btn btn-link" type="submit" value="{{ 'update'|trans|capitalize }}">                            
                             </td>
                         </form>                       
                     </tr>                                                           
                 {% endfor %}
                     <tr>
                         <td></td>
-                        <td colspan="2" class="text-end">Before taxes:</td>
+                        <td colspan="2" class="text-end">{{ 'before taxes'|trans|capitalize }}:</td>
                         <td colspan="2">{{ price }} €</td>                        
                     </tr>
                     <tr>
                         <td></td>                                               
-                        <td colspan="2" class="text-end">Taxes 21 %:</td>
+                        <td colspan="2" class="text-end">{{ 'taxes'|trans|upper }} 21 %:</td>
                         <td colspan="2">{{ taxex }} €</td>
                     </tr>
                     <tr>
