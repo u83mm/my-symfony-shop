@@ -131,7 +131,7 @@ class ProductController extends AbstractController
 
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Product $product, ProductRepository $productRepository, SluggerInterface $slugger): Response
+    public function edit(Request $request, Product $product, ProductRepository $productRepository, SluggerInterface $slugger, Session $session): Response
     {
         // Test for a current locale and set ProductDescription methods
         $productGetLocaleDescription = "get" . ucfirst($request->getLocale()) . 'Description';
@@ -190,6 +190,7 @@ class ProductController extends AbstractController
         return $this->render('product/edit.html.twig', [
             'product' => $product,
             'form' => $form,
+            'cart' => $session->get('cart')
         ]);
     }
 
