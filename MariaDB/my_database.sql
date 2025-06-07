@@ -43,7 +43,8 @@ INSERT INTO `doctrine_migration_versions` VALUES
 ('DoctrineMigrations\\Version20220922184201','2022-09-22 20:42:12',44),
 ('DoctrineMigrations\\Version20220924163010','2022-10-08 12:15:08',237),
 ('DoctrineMigrations\\Version20220924172138','2022-10-08 12:15:08',164),
-('DoctrineMigrations\\Version20220924221120','2022-10-08 12:15:08',181);
+('DoctrineMigrations\\Version20220924221120','2022-10-08 12:15:08',181),
+('DoctrineMigrations\\Version20250606163822','2025-06-06 18:38:26',356);
 /*!40000 ALTER TABLE `doctrine_migration_versions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,9 +60,9 @@ CREATE TABLE `messenger_messages` (
   `body` longtext NOT NULL,
   `headers` longtext NOT NULL,
   `queue_name` varchar(190) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `available_at` datetime NOT NULL,
-  `delivered_at` datetime DEFAULT NULL,
+  `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `available_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
+  `delivered_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`id`),
   KEY `IDX_75EA56E0FB7336F0` (`queue_name`),
   KEY `IDX_75EA56E0E3BD61CE` (`available_at`),
@@ -105,33 +106,6 @@ LOCK TABLES `order` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `order_content`
---
-
-DROP TABLE IF EXISTS `order_content`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `order_content` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `price` decimal(8,2) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `dispacth_date` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `order_content`
---
-
-LOCK TABLES `order_content` WRITE;
-/*!40000 ALTER TABLE `order_content` DISABLE KEYS */;
-/*!40000 ALTER TABLE `order_content` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `order_product`
 --
 
@@ -171,8 +145,11 @@ CREATE TABLE `product` (
   `description` longtext NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `image` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `product_description_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `IDX_D34A04AD5EF6E847` (`product_description_id`),
+  CONSTRAINT `FK_D34A04AD5EF6E847` FOREIGN KEY (`product_description_id`) REFERENCES `product_description` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -182,17 +159,54 @@ CREATE TABLE `product` (
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
 INSERT INTO `product` VALUES
-(52,'Fender Bass','Odio dolorum reiciendis tempore ad laudantium omnis deserunt. Nisi ut hic in architecto dolorem ducimus ut. Et atque laudantium fugit aspernatur.',32.33,'bass-ic-640268c5aa6b2.png'),
-(53,'Queen.','Sed in libero sequi et facere modi. Dolor est architecto quia quaerat quis eaque voluptate. Aliquid deleniti voluptate soluta et laudantium qui.',493.50,'bass-ic1-640247403c24d.png'),
-(54,'And so.','Quisquam voluptatem ratione vel est accusantium. Magnam similique dolor architecto quo molestias. Repellat quae debitis et aperiam consequatur vel id.',300.50,'btr300-632e26d0ec812.png'),
-(55,'Latitude.','Animi consectetur quis voluptatibus quo asperiores repellat. Magni quod reprehenderit rem pariatur.',24.25,'fg700s-632e271809675.png'),
-(56,'Alice.','Consequatur laudantium ducimus est. Animi sint dicta voluptatem numquam recusandae aperiam. Amet nobis voluptas animi natus ut asperiores.',493.00,'hofner-632e272f28527.png'),
-(57,'I!\' said.','Quo similique officiis repellat recusandae quae. Modi amet quisquam blanditiis tempore culpa nesciunt voluptas. Esse iste aut rem similique. Quasi consequatur enim dolores consequuntur fugit.',233.00,'ibanez-632e2743db7fe.png'),
-(58,'Duchess.','Est culpa eum aut nesciunt expedita vero consectetur. Occaecati libero deserunt aut dolorem aliquam magni. Possimus non deleniti assumenda ex ad esse. Aut quia ut sed reiciendis dignissimos.',103.50,'precision-632e2766a1015.png'),
-(59,'Gibson Les Paul','Quam at quisquam delectus repellat suscipit. Et officia ipsam molestiae.',174.20,'les-paul-632e254b1836e.png'),
-(60,'Hatter.','Expedita unde earum explicabo officiis et dolor voluptas libero. Et ab et quis. Sit qui aut similique nihil et quia.',75.80,'ludwig-632e278d3570b.png'),
-(61,'MUST be.','Sit quam sapiente velit blanditiis. Voluptas doloribus error et est ut corrupti. Praesentium incidunt magnam reiciendis excepturi aliquid. Non magni itaque exercitationem facere ut molestias.',423.00,'pearl-632e27a211763.png');
+(53,'Queen.','Sed in libero sequi et facere modi. Dolor est architecto quia quaerat quis eaque voluptate. Aliquid deleniti voluptate soluta et laudantium qui.',493.50,'bass-ic1-640247403c24d.png',2),
+(54,'And so.','Quisquam voluptatem ratione vel est accusantium. Magnam similique dolor architecto quo molestias. Repellat quae debitis et aperiam consequatur vel id.',300.50,'btr300-632e26d0ec812-683c9461142aa.png',3),
+(55,'Latitude.','Guitarra acústica',280.75,'fg700s-632e271809675.png',4),
+(56,'Alice.','Consequatur laudantium ducimus est. Animi sint dicta voluptatem numquam recusandae aperiam. Amet nobis voluptas animi natus ut asperiores.',493.00,'hofner-632e272f28527.png',5),
+(57,'I!\' said.','Quo similique officiis repellat recusandae quae. Modi amet quisquam blanditiis tempore culpa nesciunt voluptas. Esse iste aut rem similique. Quasi consequatur enim dolores consequuntur fugit.',233.00,'ibanez-632e2743db7fe.png',6),
+(58,'Duchess.','Est culpa eum aut nesciunt expedita vero consectetur. Occaecati libero deserunt aut dolorem aliquam magni. Possimus non deleniti assumenda ex ad esse. Aut quia ut sed reiciendis dignissimos.',103.50,'precision-632e2766a1015.png',7),
+(59,'Gibson Les Paul','Quam at quisquam delectus repellat suscipit. Et officia ipsam molestiae.',174.20,'les-paul-632e254b1836e.png',8),
+(60,'Hatter.','Expedita unde earum explicabo officiis et dolor voluptas libero. Et ab et quis. Sit qui aut similique nihil et quia.',75.80,'ludwig-632e278d3570b.png',9),
+(62,'Pearl Drums','Batería configurada',355.00,'pearl-632e27a211763-6843344fb53ee.png',11),
+(63,'Fender Bass','Fender Bass USA',800.00,'bass-ic-640268c5aa6b2-683c9456516ad-684334bec2342.png',12);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product_description`
+--
+
+DROP TABLE IF EXISTS `product_description`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `product_description` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `es_description` longtext DEFAULT NULL,
+  `en_description` longtext DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product_description`
+--
+
+LOCK TABLES `product_description` WRITE;
+/*!40000 ALTER TABLE `product_description` DISABLE KEYS */;
+INSERT INTO `product_description` VALUES
+(1,'Spanish version','English versions'),
+(2,NULL,NULL),
+(3,NULL,NULL),
+(4,'Guitarra acústica','Acoustic guitar'),
+(5,NULL,NULL),
+(6,NULL,NULL),
+(7,NULL,NULL),
+(8,NULL,NULL),
+(9,NULL,NULL),
+(10,NULL,NULL),
+(11,'Batería configurada',NULL),
+(12,'Bajo fender USA','Fender Bass USA');
+/*!40000 ALTER TABLE `product_description` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -211,7 +225,7 @@ CREATE TABLE `user` (
   `city` varchar(50) NOT NULL,
   `address` varchar(100) NOT NULL,
   `email` varchar(180) NOT NULL,
-  `roles` longtext NOT NULL COMMENT '(DC2Type:json)',
+  `roles` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL COMMENT '(DC2Type:json)' CHECK (json_valid(`roles`)),
   `password` varchar(255) NOT NULL,
   `registration_date` datetime NOT NULL,
   `secret` varchar(255) DEFAULT NULL,
@@ -251,4 +265,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2025-06-01 16:29:07
+-- Dump completed on 2025-06-06 19:01:12

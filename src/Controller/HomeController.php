@@ -14,13 +14,21 @@ class HomeController extends AbstractController
     #[Route('/{_locale}', name: 'app_home')]
     public function index(ManagerRegistry $mr, Session $session): Response
     {
-        $products = $mr->getRepository(Product::class)->findAll(); 
+        // Test for a current locale
+        $productGetLocaleDescription = "get" . ucfirst($session->get('_locale')) . 'Description';        
+        
+        if($mr->getRepository(Product::class)->findAll()) {
+            foreach ($mr->getRepository(Product::class)->findAll() as $product) {
+                // Set current product description language
+                $product->setDescription($product->getProductDescription()->$productGetLocaleDescription() ?? "");
+            }
+        }
 
         $cart = $session->get('cart');
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
-            'products' => $products,
+            'products' => $mr->getRepository(Product::class)->findAll(),
             'cart' => $cart,                                            
         ]);                    
     }
