@@ -2972,7 +2972,6 @@
                 "shasum": ""
             },
             "require": {
-                "doctrine/event-manager": "^1.2|^2",
                 "doctrine/persistence": "^2.5|^3.1|^4",
                 "php": ">=8.1",
                 "symfony/deprecation-contracts": "^2.5|^3",
@@ -5969,6 +5968,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/runtime/zipball/832c3ce3b810509815050434ccb7ead68d06395b",
                 "reference": "832c3ce3b810509815050434ccb7ead68d06395b",
+
                 "shasum": ""
             },
             "require": {
