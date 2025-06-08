@@ -37,7 +37,7 @@
 					<div class="text-end">
 						<div class="col-12 col-md-10 col-lg-12">
 							{% if cart is defined %}
-								<a href="{{ path('app_cart_show') }}">Cart Products ({{ cart | length }})</a>																
+								<a href="{{ path('app_cart_show') }}">{{ 'cart products'|trans|capitalize }} ({{ cart | length }})</a>																
 							{% endif %}
 						</div>						
 					</div>										
@@ -51,21 +51,21 @@
 					</div>
 					<ul class="nav nav-pills">
 						<li class="nav-item d-none d-sm-none d-lg-inline-block">
-							<a class="nav-link" aria-current="page" href="{{ path('app_home') }}">Home</a>
+							<a class="nav-link" aria-current="page" href="{{ path('app_home') }}">{{ 'home'|trans|capitalize }}</a>
 						</li>
 						<li class="nav-item d-none d-sm-none d-lg-inline-block">
 							{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-								<a class="nav-link" aria-current="page" href="{{ path('app_user_new') }}">Registration</a>															
+								<a class="nav-link" aria-current="page" href="{{ path('app_register') }}">{{ 'registration'|trans|capitalize }}</a>															
 							{% endif %}							
 						</li>
 						<li class="nav-item d-none d-sm-none d-lg-inline-block">
 							{% if is_granted('ROLE_ADMIN') %}					
-								<a class="nav-link" aria-current="page" href="{{ path('app_admin') }}">Panel de Control</a>									
+								<a class="nav-link" aria-current="page" href="{{ path('app_admin') }}">{{ 'control panel'|trans|capitalize }}</a>									
 							{% endif %}							
 						</li>												
 						<li class="nav-item d-none d-sm-none d-lg-inline-block">
 							{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-								<a class="nav-link" aria-current="page" href="{{ path('app_logout') }}">Logout</a>								
+								<a class="nav-link" aria-current="page" href="{{ path('app_logout') }}">{{ 'logout'|trans|capitalize }}</a>								
 							{% else %}								
 								<a class="nav-link" aria-current="page" href="{{ path('app_login') }}">Login</a>
 							{% endif %}
@@ -105,8 +105,12 @@
 			</nav>
 			{% endblock %}			
 			<main class="pt-3 pb-3">
+				<div class="text-end pe-1">
+					<a class="p-1" href="{{ path('app_change_locale', { 'locale': 'en' }) }}"><img class="me-xl-1 languageFlag" src="{{ asset('images/english-flag.svg') }}" alt="English flag">{{ 'english'|trans|capitalize }}</a>
+					<a class="p-1" href="{{ path('app_change_locale', { 'locale': 'es' }) }}"><img class="me-xl-1 languageFlag" src="{{ asset('images/spanish-flag.svg') }}" alt="">{{ 'spanish'|trans|capitalize }}</a>
+				</div>
 				{% if is_granted('IS_AUTHENTICATED_FULLY') %}					
-					<p>Loged as: <strong>{{ app.user.name }}</strong></p>									
+					<p>{{ 'logged as'|trans|capitalize }}: <strong>{{ app.user.name|trans|capitalize }}</strong></p>									
 				{% endif %}
 				{% block flash %}
 					{# read and display all flash messages #}
@@ -117,7 +121,7 @@
 							</div>
 						{% endfor %}
 					{% endfor %}
-				{% endblock %}
+				{% endblock %}				
 				{% block main %}{% endblock %}
 			</main>
 			<footer class="text-center rounded bg-success p-2 bg-opacity-25 border border-primary">
@@ -125,40 +129,40 @@
 					<div class="container-fluid p-xl-5">						
 						<div class="row">
 							<div class="col-sm-6 col-lg-3 pe-xl-5 ps-xl-5 mb-4">
-								<h4>Proyectos</h4>
+								<h4>{{ 'projects'|trans|capitalize }}</h4>
 								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ducimus a maiores reprehenderit praesentium? Molestiae laboriosam et voluptates autem, magnam enim commodi repellat doloribus similique accusantium! Nihil a quaerat eius?</p>
 								<a href="#">Link</a>								
 							</div>
 							<div class="col-sm-6 col-lg-3 pe-xl-5 ps-xl-5 mb-4">
-								<h4>Social Networks</h4>
+								<h4>{{ 'social networks'|trans|title }}</h4>
 								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque rerum ducimus repudiandae inventore! Perspiciatis, fuga totam. Similique quas deserunt minima. Similique sint minima omnis ipsum suscipit obcaecati quibusdam aperiam sit accusamus nobis excepturi natus cupiditate repellendus asperiores, corrupti, veniam dolorem doloremque.</p>
 								<div class="row">
 									<div class="col-2">
-										<a href="#" target="_blank" title="My channel" target="_blank"><span class="youtubeIcon"><i class="fab fa-youtube fa-2x fa-fw"></i></span></a>&nbsp;	
+										<a href="#" target="_blank" title="{{ 'my youtube channel'|trans|capitalize }}" target="_blank"><span class="youtubeIcon"><i class="fab fa-youtube fa-2x fa-fw"></i></span></a>&nbsp;	
 									</div>
 									<div class="col-2">
-										<a href="#" target="_blank" title="Look at me here"><span class="linkedinIcon"><i class="fab fa-linkedin fa-2x fa-fw"></i></span></a>&nbsp;
+										<a href="#" target="_blank" title="{{ 'look at me in linkedin'|trans|capitalize }}"><span class="linkedinIcon"><i class="fab fa-linkedin fa-2x fa-fw"></i></span></a>&nbsp;
 									</div>								
 								</div>
 								<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. A aliquid placeat at veniam, recusandae aliquam id ex deleniti similique, possimus, assumenda ullam. Sunt labore aliquam molestiae pariatur tempore eos ex./p>																						
 							</div>
 							<div class="col-sm-6 col-lg-3 pe-xl-5 ps-xl-5 mb-4">
-								<h4>About me</h4>
+								<h4>{{ 'about me'|trans|capitalize }}</h4>
 								<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quos velit sunt tempore voluptates laudantium nostrum aut! Tempora magnam dolore voluptatibus delectus maiores esse beatae inventore tempore cum, commodi eum amet.
 								Quos aliquid, architecto et earum possimus deleniti assumenda unde ex facere consectetur nobis aliquam eaque recusandae sapiente, ullam nesciunt id? Optio mollitia magnam nostrum voluptas modi! Maiores unde impedit fugiat!</p>
 							</div>
 							<div class="col-sm-6 col-lg-3 pe-xl-5 ps-xl-5 mb-4">
-								<h4>Contact me</h4>								
+								<h4>{{ 'contact'|trans|capitalize }}</h4>								
 								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit praesentium exercitationem consectetur perspiciatis, quam cumque, repellendus reprehenderit minima voluptatem eos voluptates magni, maiores provident sunt ratione sit laboriosam libero! Ipsa?
 								Id, molestiae minus tenetur fugiat ex animi maxime, rerum illum dignissimos eos iure numquam ullam corrupti tempore ad quo repellat eius dolorem enim quidem, consectetur excepturi debitis? Atque, officiis accusamus.</p>
 								<div class="col-12 text-start">
-									<a href="mailto:admin@admin.com" title="Send me an email"><span class="mailIcon"><i class="fas fa-envelope fa-lg fa-fw"></i></span> Send me an e-mail</a>
+									<a href="mailto:admin@admin.com" title="{{ 'send me an email'|trans|capitalize }}"><span class="mailIcon"><i class="fas fa-envelope fa-lg fa-fw"></i></span> {{ 'send me an email'|trans|capitalize }}</a>
 								</div>
 								<div class="col-12 text-start">
-									<a href="tel:+11111111111" title="Call me"><span class="phoneIcon"><i class="fas fa-mobile-alt fa-lg fa-fw"></i></span> +00 000000000</a>
+									<a href="tel:+11111111111" title="{{ 'call me'|trans|capitalize }}"><span class="phoneIcon"><i class="fas fa-mobile-alt fa-lg fa-fw"></i></span> +00 000000000</a>
 								</div>
 								<div class="col-12 text-start">
-									<span class="whatsappIcon d-inline" title="Contact me at whatsapp"><i class="fab fa-whatsapp-square fa-lg fa-fw"></i></span> +00 000000000
+									<span class="whatsappIcon d-inline" title="{{ 'contact me at whatsapp'|trans|capitalize }}"><i class="fab fa-whatsapp-square fa-lg fa-fw"></i></span> +00 000000000
 								</div>								
 							</div>
 							<div class="row pt-5">

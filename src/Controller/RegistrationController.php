@@ -14,7 +14,11 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class RegistrationController extends AbstractController
 {
-    #[Route('/register', name: 'app_register')]
+    public function __construct(private TranslatorInterface $translator)
+    {
+        
+    }
+    #[Route('/{_locale}/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $user = new User();
@@ -22,21 +26,31 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+            try {
+                // encode the plain password
+                $user->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $user,
+                        $form->get('plainPassword')->getData()
+                    )
+                );
 
-            $entityManager->persist($user);
-            $entityManager->flush();
-            // do anything else you need here, like send an email
+                $entityManager->persist($user);
+                $entityManager->flush();
+                // do anything else you need here, like send an email
 
-            $this->addFlash('notice', 'Now you are registered, you can do login in login section.');
+                $this->addFlash('notice', 'Now you are registered, you can do login in login section.');
 
-            return $this->redirectToRoute('app_home');
+                return $this->redirectToRoute('app_home');
+
+            } catch (\Throwable $th) {
+                if($this->isGranted('ROLE_ADMIN')) {
+                    $this->addFlash('error', $th->getMessage());
+                }
+                else {
+                    $this->addFlash('error', ucfirst($this->translator->trans('alert admin')));
+                }
+            }
         }        
 
         return $this->render('registration/register.html.twig', [

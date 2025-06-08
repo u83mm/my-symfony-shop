@@ -21,4 +21,5 @@
 
 ###> my files to ignore ###
 /log/
-###< my files to ignore ###
+/db_vol/
+/MariaDB/

@@ -2,15 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Order;
 use App\Entity\Product;
-use App\Entity\User;
-use DateTime;
-use Doctrine\Persistence\ManagerRegistry;
+use App\Repository\ProductRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Require authentication for this actions
  */
 #[IsGranted('IS_AUTHENTICATED_FULLY')]
-#[Route('/cart')]
+#[Route('/{_locale}/cart')]
 class CartController extends AbstractController
 {        
     /**
@@ -28,8 +24,8 @@ class CartController extends AbstractController
      * @return Response A response object.
      */
     #[Route('/', name: 'app_cart')]
-    public function index(Session $session): Response{
-
+    public function index(Session $session): Response
+    {
         return $this->render('cart/index.html.twig', [
             'controller_name' => 'CartController', 
             'cart' => $session->get('cart'),                  
@@ -38,7 +34,7 @@ class CartController extends AbstractController
 
     #[Route('/{id}/add', name: 'app_cart_add')]
     public function addToCart(Product $product, Session $session): Response
-    {  
+    {
         /* Adding the product to the cart. */ 
         $cart = $session->get('cart');
 
@@ -56,29 +52,34 @@ class CartController extends AbstractController
             ];                                
         }                                                              
         
-        $session->set('cart', $cart);
-        //$this->addFlash('notice', 'Added product successfully.');
+        $session->set('cart', $cart);        
         return $this->redirectToRoute('app_cart', [], Response::HTTP_SEE_OTHER);                      
     }
 
     #[Route('/show', name: 'app_cart_show')]
-    public function showCart(Session $session): Response
-    {   
-        //dd($session->get('cart'));
-        $cart = $session->get('cart');
+    public function showCart(Session $session, ProductRepository $productRepository, Request $request): Response
+    {
+        // Test for a current locale
+        $productGetLocaleDescription = "get" . ucfirst($request->getLocale()) . 'Description';
+
+        $products = $session->get('cart');                
         $price = (float) 0;
 
-        foreach ($cart as $key => $value) {
-            $price +=  (float) ($value['price'] * $value['qty']);            
+        if($session->get('cart')) {
+            foreach ($products as &$product) {
+                $price +=  (float) ($product['price'] * $product['qty']);
+                
+                $productObject = $productRepository->findOneBy(['id' => $product['id']]);
+                $product['description'] = $productObject->getProductDescription()->$productGetLocaleDescription();         
+            }            
         }
-
+        
         $taxes = (float) number_format($price * 0.21, 2, ".");
-        $totalPrice = $price + $taxes;
-        //dd($price);
+        $totalPrice = $price + $taxes;       
 
         return $this->render('cart/show_cart.html.twig', [
             'controller_name'   => 'CartController',
-            'cart'              =>  $session->get('cart'),
+            'cart'              =>  $products,
             'price'             =>  $price,
             'taxex'             =>  $taxes,
             'total'             =>  $totalPrice,                            

@@ -15,12 +15,9 @@
                 </div>               
                 
                 <div class="d-inline-block col-md-7">
-                    <p>{{ product.description }}</p>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur distinctio neque 
-                    aspernatur mollitia molestias quasi atque esse, odio voluptates nesciunt provident illo nemo 
-                    dicta in amet sint? Asperiores, rerum id.</p>
-                    <p><strong>Price: </strong>{{ product.price }} €</p>
-                    <a class="btn btn-outline-primary" href="{{ path('app_product_show', {'id':  product.id}) }}">View article</a>
+                    <p>{{ product.description }}</p>                    
+                    <p><strong>{{ 'price'|trans|capitalize }}: </strong>{{ product.price }} €</p>
+                    <a class="btn btn-outline-primary" href="{{ path('app_product_show', {'id':  product.id}) }}">{{ 'view article'|trans|capitalize }}</a>
                 </div>                                                  
             </div>           
         {% endfor %}            
