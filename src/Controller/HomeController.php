@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,10 +13,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/{_locale}', name: 'app_home')]
-    public function index(ManagerRegistry $mr, Session $session): Response
+    public function index(ManagerRegistry $mr, Session $session, Request $request): Response
     {
         // Test for a current locale
-        $productGetLocaleDescription = "get" . ucfirst($session->get('_locale')) . 'Description';        
+        $productGetLocaleDescription = "get" . ucfirst($request->getLocale()) . 'Description';        
         
         if($mr->getRepository(Product::class)->findAll()) {
             foreach ($mr->getRepository(Product::class)->findAll() as $product) {

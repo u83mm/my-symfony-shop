@@ -57,10 +57,10 @@ class CartController extends AbstractController
     }
 
     #[Route('/show', name: 'app_cart_show')]
-    public function showCart(Session $session, ProductRepository $productRepository): Response
+    public function showCart(Session $session, ProductRepository $productRepository, Request $request): Response
     {
         // Test for a current locale
-        $productGetLocaleDescription = "get" . ucfirst($session->get('_locale')) . 'Description';
+        $productGetLocaleDescription = "get" . ucfirst($request->getLocale()) . 'Description';
 
         $products = $session->get('cart');                
         $price = (float) 0;
