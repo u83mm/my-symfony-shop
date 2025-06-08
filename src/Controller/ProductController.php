@@ -106,11 +106,11 @@ class ProductController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_product_show', methods: ['GET'])]
-    public function show(Product $product, Session $session): Response
+    public function show(Product $product, Session $session, Request $request): Response
     {
         try {                        
             // Test for a current locale
-            $productGetLocaleDescription = "get" . ucfirst($session->get('_locale')) . 'Description';                        
+            $productGetLocaleDescription = "get" . ucfirst($request->getLocale()) . 'Description';                        
 
             // Set product description
             $product->setDescription($product->getProductDescription()->$productGetLocaleDescription() ?? "");
