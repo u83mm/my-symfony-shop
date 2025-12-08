@@ -5,9 +5,17 @@ controllers:
     type: attribute
 
 app_logout:
-            path: /{_locale}/logout
-            methods: GET
+    path: /{_locale}/logout
+    methods: GET
 
 change_locale:
     path: /change-locale/{locale}
-    controller: App\Controller\LocaleController::change
+    controller: App\Controller\LocalController::change
+    requirements:
+        _locale: en|es
+
+index:
+    path: /
+    controller: App\Controller\HomeController::index
+    requirements:
+        _locale: en|es
