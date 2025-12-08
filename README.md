@@ -9,10 +9,10 @@
 
     Create .environ file in "MariaDB" directory with your DB credentials:
 
-    MYSQL_ROOT_PASSWORD: root_password
-    MYSQL_DATABASE: database_name
-    MYSQL_USER: user_name
-    MYSQL_PASSWORD: password_user
+    MYSQL_ROOT_PASSWORD: admin
+    MYSQL_DATABASE: my_database
+    MYSQL_USER: admin
+    MYSQL_PASSWORD: admin
 
 <li>Build</li>
 
@@ -28,8 +28,8 @@
 
     I do it accessing to phpMyAdmin in local host:
         http://localhost:8080/
-        user: pepe
-        passw: pepe
+        user: admin
+        passw: admin
 
         Import "my_database.sql" file from MariaDB directory.
 
