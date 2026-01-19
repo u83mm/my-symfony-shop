@@ -26,10 +26,10 @@ class ProductController extends AbstractController
     }
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/', name: 'app_product_index', methods: ['GET'])]
-    public function index(ProductRepository $productRepository, Session $session): Response
+    public function index(ProductRepository $productRepository, Session $session, Request $request): Response
     {
         // Test for a current locale
-        $productGetLocaleDescription = "get" . ucfirst($session->get('_locale')) . 'Description';                                
+        $productGetLocaleDescription = "get" . ucfirst($request->getLocale())  . 'Description';                                
 
         $cart = $session->get('cart');       
 
