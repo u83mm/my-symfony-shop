@@ -33,8 +33,7 @@ services:
 
       container_name: php
       ports:
-      - "80:80"
-      - "9003:9003"
+      - "80:80"     
       extra_hosts:
         - "host.docker.internal:host-gateway"
       tty: true
